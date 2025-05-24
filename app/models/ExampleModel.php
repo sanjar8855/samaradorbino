@@ -22,10 +22,10 @@ class ExampleModel {
     public function getAllWithCatId(int $catId): array {
         // – Prepared statement bilan xavfsizroq:
         $stmt = $this->db->prepare("
-      SELECT * 
-      FROM subcategories 
-      WHERE category_id = :catId
-    ");
+          SELECT * 
+          FROM subcategories 
+          WHERE category_id = :catId
+        ");
         $stmt->execute(['catId' => $catId]);
         return $stmt->fetchAll();
     }
