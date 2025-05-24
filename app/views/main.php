@@ -86,7 +86,7 @@
                    class="form-control form-control-sm" value="9.45" required>
         </div>
 
-        <!-- 1) Tashqi devor turi -->
+
         <div class="col-12">
             <h3 class="mt-5">Tashqi devor turi</h3>
             <select id="init_wall_type" name="wall_type" class="form-select" required>
@@ -181,14 +181,14 @@
                     <td><?= $i ?>-</td>
                     <td>
                         <input type="number"
-                               name="door_layer[<?= $i ?>][thickness]"
+                               name="init_door_layer[<?= $i ?>][thickness]"
                                step="0.001"
                                class="form-control"
                                value="<?= $i * 0.1 ?>"
                                placeholder="0.000"/>
                     </td>
                     <td>
-                        <select name="door_layer[<?= $i ?>][type]" class="form-select">
+                        <select name="init_door_layer[<?= $i ?>][type]" class="form-select">
                             <option value="">Tanlang...</option>
                             <?php foreach ($doorMaterials as $dm): ?>
                                 <option value="<?= $dm['id'] ?>"><?= htmlspecialchars($dm['name']) ?></option>
@@ -197,7 +197,7 @@
                     </td>
                     <td>
                         <input type="number"
-                               name="door_layer[<?= $i ?>][type_v]"
+                               name="init_door_layer[<?= $i ?>][val]"
                                step="0.001"
                                class="form-control"
                                placeholder="0.000"/>
@@ -209,7 +209,7 @@
 
         <div class="col-12">
             <h3>Tom yopma turi</h3>
-            <select id="roof_type" name="roof_type" class="form-select" required>
+            <select id="init_roof_type" name="init_roof_type" class="form-select" required>
                 <option value="">Tanlang...</option>
                 <option value="1">Chordoqli</option>
                 <option value="2">Tekis</option>
@@ -231,14 +231,14 @@
                     <td><?= $i ?>-</td>
                     <td>
                         <input type="number"
-                               name="roof_layer[<?= $i ?>][thickness]"
+                               name="init_roof_layer[<?= $i ?>][thickness]"
                                step="0.001"
                                class="form-control"
                                value="<?= $i * 0.1 ?>"
                                placeholder="0.000"/>
                     </td>
                     <td>
-                        <select name="roof_layer[<?= $i ?>][type]" class="form-select">
+                        <select name="init_roof_layer[<?= $i ?>][type]" class="form-select">
                             <option value="">Tanlang...</option>
                             <?php foreach ($roofMaterials as $r): ?>
                                 <option value="<?= $r['id'] ?>"><?= htmlspecialchars($r['name']) ?></option>
@@ -247,7 +247,7 @@
                     </td>
                     <td>
                         <input type="number"
-                               name="roof_layer[<?= $i ?>][type_v]"
+                               name="init_roof_layer[<?= $i ?>][val]"
                                step="0.001"
                                class="form-control"
                                placeholder="0.000"/>
@@ -273,14 +273,14 @@
                     <td><?= $i ?>-</td>
                     <td>
                         <input type="number"
-                               name="floor_layer[<?= $i ?>][thickness]"
+                               name="init_floor_layer[<?= $i ?>][thickness]"
                                step="0.001"
                                class="form-control"
                                value="<?= $i * 0.1 ?>"
                                placeholder="0.000"/>
                     </td>
                     <td>
-                        <select name="floor_layer[<?= $i ?>][type]" class="form-select">
+                        <select name="init_floor_layer[<?= $i ?>][type]" class="form-select">
                             <option value="">Tanlang...</option>
                             <?php foreach ($roofMaterials as $f): ?>
                                 <option value="<?= $f['id'] ?>"><?= htmlspecialchars($f['name']) ?></option>
@@ -289,7 +289,7 @@
                     </td>
                     <td>
                         <input type="number"
-                               name="floor_layer[<?= $i ?>][type_v]"
+                               name="init_floor_layer[<?= $i ?>][val]"
                                step="0.001"
                                class="form-control"
                                placeholder="0.000"/>
@@ -315,8 +315,9 @@
                    class="form-control form-control-sm">
         </div>
 
-        <!-- TA’MIRLANGANDAGI O‘ZGARISHLAR -->
+
         <h3 class="mt-5">Ta’mirlangandagi o‘zgarishlar</h3>
+
 
         <!-- 1) Qo‘shimcha tashqi devor qatlamlari -->
         <h5 class="mt-4">Qo‘shimcha tashqi devor qatlamlari</h5>
@@ -330,41 +331,60 @@
             </tr>
             </thead>
             <tbody>
-            <?php for($i=1; $i<=6; $i++): ?>
+
+            <?php for ($i = 1; $i <= 6; $i++): ?>
                 <tr>
-                    <td><?= $i ?></td>
+                    <td><?= $i ?>-</td>
                     <td>
                         <input type="number"
-                               name="additional_wall_layer[<?= $i ?>][thickness]"
+                               name="rep_wall[<?= $i ?>][thickness]"
                                step="0.001"
-                               class="form-control form-control-sm"
-                               placeholder="0.000">
+                               class="form-control"
+                               value="<?= $i * 0.1 ?>"
+                               placeholder="0.000"/>
                     </td>
                     <td>
-                        <select name="additional_wall_layer[<?= $i ?>][type]"
-                                class="form-select form-select-sm">
-                            <option value="">Tanlang…</option>
-                            <?php foreach($wall_layer as $wl): ?>
-                                <option value="<?= $wl['id'] ?>">
-                                    <?= htmlspecialchars($wl['name']) ?>
-                                </option>
+                        <select name="rep_wall[<?= $i ?>][type]" class="form-select">
+                            <option value="">Tanlang...</option>
+                            <?php foreach ($wall_layer as $wl): ?>
+                                <option value="<?= $wl['id'] ?>"><?= htmlspecialchars($wl['name']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>
                     <td>
                         <input type="number"
-                               name="additional_wall_layer[<?= $i ?>][type_v]"
+                               name="rep_wall[<?= $i ?>][val]"
                                step="0.001"
-                               class="form-control form-control-sm"
-                               placeholder="0.000">
+                               class="form-control"
+                               placeholder="0.000"/>
                     </td>
                 </tr>
             <?php endfor; ?>
             </tbody>
         </table>
 
-        <!-- 2) Qo‘shimcha izolyatsiya qatlami -->
-        <h5 class="mt-4">Qo‘shimcha izolyatsiya qatlami</h5>
+        <div class="col-12">
+            <h3>Tashqi deraza turi</h3>
+            <select id="rep_window_type" name="rep_window_type" class="form-select form-select-sm">
+                <option value="">Tanlang...</option>
+                <?php foreach ($window_layer as $wl): ?>
+                    <option value="<?= $wl['id'] ?>">
+                        <?= htmlspecialchars($wl['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="col-12">
+            <h3>Tashqi eshik turi</h3>
+            <select id="rep_door_type" name="rep_door_type" class="form-select" required>
+                <option value="">Tanlang...</option>
+                <?php foreach ($doorMaterials2 as $dm): ?>
+                    <option value="<?= $dm['id'] ?>"><?= htmlspecialchars($dm['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
         <table class="table table-bordered align-middle">
             <thead class="table-light">
             <tr>
@@ -375,33 +395,123 @@
             </tr>
             </thead>
             <tbody>
-            <?php for($i=1; $i<=6; $i++): ?>
+            <?php for ($i = 1; $i <= 3; $i++): ?>
                 <tr>
-                    <td><?= $i ?></td>
+                    <td><?= $i ?>-</td>
                     <td>
                         <input type="number"
-                               name="insulation_layer[<?= $i ?>][thickness]"
+                               name="rep_door_layer[<?= $i ?>][thickness]"
                                step="0.001"
-                               class="form-control form-control-sm"
-                               placeholder="0.000">
+                               class="form-control"
+                               value="<?= $i * 0.1 ?>"
+                               placeholder="0.000"/>
                     </td>
                     <td>
-                        <select name="insulation_layer[<?= $i ?>][type]"
-                                class="form-select form-select-sm">
-                            <option value="">Tanlang…</option>
-                            <?php foreach($insulationMaterials as $im): ?>
-                                <option value="<?= $im['id'] ?>">
-                                    <?= htmlspecialchars($im['name']) ?>
-                                </option>
+                        <select name="rep_door_layer[<?= $i ?>][type]" class="form-select">
+                            <option value="">Tanlang...</option>
+                            <?php foreach ($doorMaterials as $dm): ?>
+                                <option value="<?= $dm['id'] ?>"><?= htmlspecialchars($dm['name']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>
                     <td>
                         <input type="number"
-                               name="insulation_layer[<?= $i ?>][type_v]"
+                               name="rep_door_layer[<?= $i ?>][val]"
                                step="0.001"
-                               class="form-control form-control-sm"
-                               placeholder="0.000">
+                               class="form-control"
+                               placeholder="0.000"/>
+                    </td>
+                </tr>
+            <?php endfor; ?>
+            </tbody>
+        </table>
+
+        <div class="col-12">
+            <h3>Tom yopma turi</h3>
+            <select id="rep_roof_type" name="rep_roof_type" class="form-select" required>
+                <option value="">Tanlang...</option>
+                <option value="1">Chordoqli</option>
+                <option value="2">Tekis</option>
+            </select>
+        </div>
+
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+            <tr>
+                <th>Qatlam</th>
+                <th>Qalinligi (m)</th>
+                <th>Turi</th>
+                <th>Qiymati</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php for ($i = 1; $i <= 6; $i++): ?>
+                <tr>
+                    <td><?= $i ?>-</td>
+                    <td>
+                        <input type="number"
+                               name="rep_roof_layer[<?= $i ?>][thickness]"
+                               step="0.001"
+                               class="form-control"
+                               value="<?= $i * 0.1 ?>"
+                               placeholder="0.000"/>
+                    </td>
+                    <td>
+                        <select name="rep_roof_layer[<?= $i ?>][type]" class="form-select">
+                            <option value="">Tanlang...</option>
+                            <?php foreach ($roofMaterials as $r): ?>
+                                <option value="<?= $r['id'] ?>"><?= htmlspecialchars($r['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number"
+                               name="rep_roof_layer[<?= $i ?>][val]"
+                               step="0.001"
+                               class="form-control"
+                               placeholder="0.000"/>
+                    </td>
+                </tr>
+            <?php endfor; ?>
+            </tbody>
+        </table>
+
+        <h3 class="mt-4">Pol qoplamasi qatlamlari</h3>
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+            <tr>
+                <th>Qatlam</th>
+                <th>Qalinligi (m)</th>
+                <th>Turi</th>
+                <th>Qiymati</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php for ($i = 1; $i <= 6; $i++): ?>
+                <tr>
+                    <td><?= $i ?>-</td>
+                    <td>
+                        <input type="number"
+                               name="rep_floor_layer[<?= $i ?>][thickness]"
+                               step="0.001"
+                               class="form-control"
+                               value="<?= $i * 0.1 ?>"
+                               placeholder="0.000"/>
+                    </td>
+                    <td>
+                        <select name="rep_floor_layer[<?= $i ?>][type]" class="form-select">
+                            <option value="">Tanlang...</option>
+                            <?php foreach ($roofMaterials as $f): ?>
+                                <option value="<?= $f['id'] ?>"><?= htmlspecialchars($f['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number"
+                               name="rep_floor_layer[<?= $i ?>][val]"
+                               step="0.001"
+                               class="form-control"
+                               placeholder="0.000"/>
                     </td>
                 </tr>
             <?php endfor; ?>
