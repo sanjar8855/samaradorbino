@@ -9,7 +9,6 @@ $page = $_GET['page'] ?? 'main';
 
 if ($page === 'main') {
 
-    // 1) Avvalo modelni yaratamiz va subcategories ma'lumotlarini olamiz
     $model            = new \App\Models\ExampleModel();
     $regions          = $model->getAllRegions();
     $wall_layer       = $model->getAllWithCatId(1);

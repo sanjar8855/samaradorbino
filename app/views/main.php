@@ -1,3 +1,8 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
 <h1>Asosiy hisoblash sahifasi</h1>
 <div class="container my-5">
     <h5 class="mb-2">Boshlang‘ich ma’lumotlar</h5>
@@ -89,7 +94,7 @@
 
         <div class="col-12">
             <h3 class="mt-5">Tashqi devor turi</h3>
-            <select id="init_wall_type" name="wall_type" class="form-select" required>
+            <select id="init_wall_type" name="init_wall_type" class="form-select" required>
                 <option value="">Tanlang...</option>
                 <option value="1">3 qatlamli yig'ma temirbeton panelli</option>
                 <option value="2">Pishgan g‘isht</option>
@@ -580,24 +585,24 @@
 </div>
 
 <script>
-    const regionsData = <?= json_encode(
-        array_reduce($regions, function ($carry, $r) {
+    const regionsData = <?php
+        $regionsDataArray = array_reduce($regions, function ($carry, $r) {
             $carry[$r['id']] = [
-                'cold_temp' => $r['cold_temp'],
-                'avg_temp' => $r['average_temp'],
-                'duration' => $r['duration'],
+                'cold_temp'   => $r['cold_temp'] ?? null,
+                'avg_temp'    => $r['average_temp'] ?? null,
+                'duration'    => $r['duration'] ?? null,
+                'degree_days' => $r['degree_days'] ?? null
             ];
             return $carry;
-        }, []),
-        JSON_UNESCAPED_UNICODE
-    ); ?>;
+        }, []);
+        echo json_encode($regionsDataArray, JSON_UNESCAPED_UNICODE);
+        ?>;
 
     const regionSelect = document.getElementById('region');
 
     // har safar tanlov o'zgarganda
     regionSelect.addEventListener('change', () => {
-        const id = regionSelect.value;
-        const data = regionsData[id] || {};
+        const data = regionsData[regionSelect.value] || {};
 
         // to‘g‘ri input id’lariga qiymat qo‘yamiz
         document.getElementById('outside_temp').value = data.cold_temp ?? '';
@@ -624,9 +629,7 @@
         const B = parseFloat(inputB.value) || 0;
         const C = parseFloat(inputC.value) || 0;
 
-        const G = (A - B) * C;
-        // G ni type="number" inputga kiriting (uch xonalik aniqlik bilan)
-        inputG.value = G.toFixed(3);
+        inputG.value = ((A - B) * C).toFixed(3);
     }
 
     // 3) Har uch maydon o'zgarganda hisoblash
@@ -639,65 +642,109 @@
         calculateG();
     });
 
-    const wallCoeffs = <?= json_encode(
-        array_column($wall_layer, 'perm_coeff', 'id'),
-        JSON_UNESCAPED_UNICODE
-    ) ?>;
+    const wallCoeffs  = <?= json_encode(array_column($wall_layer,   'perm_coeff', 'id'), JSON_UNESCAPED_UNICODE) ?>;
+    const doorCoeffs  = <?= json_encode(array_column($doorMaterials, 'perm_coeff', 'id'), JSON_UNESCAPED_UNICODE) ?>;
+    const roofCoeffs  = <?= json_encode(array_column($roofMaterials, 'perm_coeff', 'id'), JSON_UNESCAPED_UNICODE) ?>;
+    const floorCoeffs = <?= json_encode(array_column($roofMaterials, 'perm_coeff', 'id'), JSON_UNESCAPED_UNICODE) ?>;
 
-    const doorCoeffs = <?= json_encode(
-        array_column($doorMaterials, 'perm_coeff', 'id'),
-        JSON_UNESCAPED_UNICODE
-    ); ?>;
+    // function bindLayers(prefix, coeffs) {
+    //     const sel = `select[name^="${prefix}\\["][name$="[type]"]`;
+    //     document.querySelectorAll(sel).forEach(select => {
+    //         select.addEventListener('change', () => {
+    //             const coeff = coeffs[select.value] ?? '';
+    //             select.closest('tr').querySelector('input[name$="[val]"]').value = coeff;
+    //         });
+    //     });
+    // }
 
-    const roofCoeffs = <?= json_encode(
-        array_column($roofMaterials, 'perm_coeff', 'id'),
-        JSON_UNESCAPED_UNICODE
-    ) ?>;
+    // bindLayers('init_wall',        wallCoeffs);
+    // bindLayers('rep_wall',         wallCoeffs);
+    // bindLayers('init_door_layer',  doorCoeffs);
+    // bindLayers('rep_door_layer',   doorCoeffs);
+    // bindLayers('init_roof_layer',  roofCoeffs);
+    // bindLayers('rep_roof_layer',   roofCoeffs);
+    // bindLayers('init_floor_layer', floorCoeffs);
+    // bindLayers('rep_floor_layer',  floorCoeffs);
 
-    const floorCoeffs = <?= json_encode(
-        array_column($roofMaterials, 'perm_coeff', 'id'),
-        JSON_UNESCAPED_UNICODE
-    )?>;
-</script>
-<script>
-    document.querySelectorAll('select[name^="wall_layer"][name$="[type]"]').forEach(select => {
+    document.querySelectorAll('select[name^="init_wall\\["][name$="[type]"]').forEach(select => {
         select.addEventListener('change', () => {
             const id = select.value;
             const coeff = wallCoeffs[id] ?? '';
-            // mos qatorni topib, type_v input’ni tanlaymiz
             const row = select.closest('tr');
-            const inputV = row.querySelector('input[name$="[type_v]"]');
+            const inputV = row.querySelector('input[name$="[val]"]');
             inputV.value = coeff;
         });
     });
 
-    document.querySelectorAll('select[name^="door_layer"][name$="[type]"]').forEach(select => {
+    document.querySelectorAll('select[name^="init_door_layer\\["][name$="[type]"]').forEach(select => {
         select.addEventListener('change', () => {
             const id = select.value;
             const coeff = doorCoeffs[id] ?? '';
             // Shu select turgan qatorni topib, type_v input’ga yozamiz
             const row = select.closest('tr');
-            const input = row.querySelector('input[name$="[type_v]"]');
+            const input = row.querySelector('input[name$="[val]"]');
             input.value = coeff;
         });
     });
 
-    document.querySelectorAll('select[name^="roof_layer"][name$="[type]"]').forEach(select => {
+    document.querySelectorAll('select[name^="init_roof_layer\\["][name$="[type]"]').forEach(select => {
         select.addEventListener('change', () => {
             const id = select.value;
             const coeff = roofCoeffs[id] ?? '';
             const row = select.closest('tr');
-            row.querySelector('input[name$="[type_v]"]').value = coeff;
+            row.querySelector('input[name$="[val]"]').value = coeff;
         });
     });
 
     // Floor layer select’lari uchun
-    document.querySelectorAll('select[name^="floor_layer"][name$="[type]"]').forEach(select => {
+    document.querySelectorAll('select[name^="init_floor_layer\\["][name$="[type]"]').forEach(select => {
         select.addEventListener('change', () => {
             const id = select.value;
             const coeff = floorCoeffs[id] ?? '';
             const row = select.closest('tr');
-            row.querySelector('input[name$="[type_v]"]').value = coeff;
+            row.querySelector('input[name$="[val]"]').value = coeff;
         });
     });
+
+    document.querySelectorAll('select[name^="rep_wall\\["][name$="[type]"]').forEach(select => {
+        select.addEventListener('change', () => {
+            const id = select.value;
+            const coeff = wallCoeffs[id] ?? '';
+            const row = select.closest('tr');
+            const inputV = row.querySelector('input[name$="[val]"]');
+            inputV.value = coeff;
+        });
+    });
+
+    document.querySelectorAll('select[name^="rep_door_layer\\["][name$="[type]"]').forEach(select => {
+        select.addEventListener('change', () => {
+            const id = select.value;
+            const coeff = doorCoeffs[id] ?? '';
+            // Shu select turgan qatorni topib, type_v input’ga yozamiz
+            const row = select.closest('tr');
+            const input = row.querySelector('input[name$="[val]"]');
+            input.value = coeff;
+        });
+    });
+
+    document.querySelectorAll('select[name^="rep_roof_layer\\["][name$="[type]"]').forEach(select => {
+        select.addEventListener('change', () => {
+            const id = select.value;
+            const coeff = roofCoeffs[id] ?? '';
+            const row = select.closest('tr');
+            row.querySelector('input[name$="[val]"]').value = coeff;
+        });
+    });
+
+    // Floor layer select’lari uchun
+    document.querySelectorAll('select[name^="rep_floor_layer\\["][name$="[type]"]').forEach(select => {
+        select.addEventListener('change', () => {
+            const id = select.value;
+            const coeff = floorCoeffs[id] ?? '';
+            const row = select.closest('tr');
+            row.querySelector('input[name$="[val]"]').value = coeff;
+        });
+    });
+
+
 </script>
