@@ -1,15 +1,18 @@
 <?php
-spl_autoload_register(function($class) {
-    $path = __DIR__ . '/../' . str_replace('\\', '/', $class) . '.php';
-    if (file_exists($path)) include $path;
+spl_autoload_register(function($class){
+    // Namespace separator → papka separator
+    $file = __DIR__ . '/../' . str_replace('\\', '/', $class) . '.php';
+    if (file_exists($file)) {
+        require $file;
+    }
 });
-
+use App\Models\ExampleModel;
 // Sahifani aniqlaymiz
 $page = $_GET['page'] ?? 'main';
 
 if ($page === 'main') {
 
-    $model            = new \App\Models\ExampleModel();
+    $model = new ExampleModel;
     $regions          = $model->getAllRegions();
     $wall_layer       = $model->getAllWithCatId(1);
     $window_layer     = $model->getAllWithCatId(2);
