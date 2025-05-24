@@ -89,13 +89,13 @@
         <!-- 1) Tashqi devor turi -->
         <div class="col-12">
             <h3 class="mt-5">Tashqi devor turi</h3>
-            <select id="wall_type" name="wall_type" class="form-select" required>
+            <select id="init_wall_type" name="wall_type" class="form-select" required>
                 <option value="">Tanlang...</option>
-                <option value="3 qatlamli yig'ma temirbeton panelli">3 qatlamli yig'ma temirbeton panelli</option>
-                <option value="Pishgan g‘isht">Pishgan g‘isht</option>
-                <option value="Gazoblok">Gazoblok</option>
-                <option value="Monolit temirbeton">Monolit temirbeton</option>
-                <option value="1 qatlamli yig'ma temirbeton panelli">1 qatlamli yig'ma temirbeton panelli</option>
+                <option value="1">3 qatlamli yig'ma temirbeton panelli</option>
+                <option value="2">Pishgan g‘isht</option>
+                <option value="3">Gazoblok</option>
+                <option value="4">Monolit temirbeton</option>
+                <option value="5">1 qatlamli yig'ma temirbeton panelli</option>
             </select>
             <div class="row mb-3">
             </div>
@@ -117,14 +117,14 @@
                     <td><?= $i ?>-</td>
                     <td>
                         <input type="number"
-                               name="wall_layer[<?= $i ?>][thickness]"
+                               name="init_wall[<?= $i ?>][thickness]"
                                step="0.001"
                                class="form-control"
                                value="<?= $i * 0.1 ?>"
                                placeholder="0.000"/>
                     </td>
                     <td>
-                        <select name="wall_layer[<?= $i ?>][type]" class="form-select">
+                        <select name="init_wall[<?= $i ?>][type]" class="form-select">
                             <option value="">Tanlang...</option>
                             <?php foreach ($wall_layer as $wl): ?>
                                 <option value="<?= $wl['id'] ?>"><?= htmlspecialchars($wl['name']) ?></option>
@@ -133,7 +133,7 @@
                     </td>
                     <td>
                         <input type="number"
-                               name="wall_layer[<?= $i ?>][type_v]"
+                               name="init_wall[<?= $i ?>][val]"
                                step="0.001"
                                class="form-control"
                                placeholder="0.000"/>
@@ -145,7 +145,7 @@
 
         <div class="col-12">
             <h3>Tashqi deraza turi</h3>
-            <select id="window_layer" name="window_layer"
+            <select id="init_window_type" name="init_window_type"
                     class="form-select form-select-sm">
                 <option value="">Tanlang...</option>
                 <?php foreach ($window_layer as $wl): ?>
@@ -158,7 +158,7 @@
 
         <div class="col-12">
             <h3>Tashqi eshik turi</h3>
-            <select id="door_layer2" name="door_layer2" class="form-select" required>
+            <select id="init_door_type" name="init_door_type" class="form-select" required>
                 <option value="">Tanlang...</option>
                 <?php foreach ($doorMaterials2 as $dm): ?>
                     <option value="<?= $dm['id'] ?>"><?= htmlspecialchars($dm['name']) ?></option>
@@ -314,6 +314,99 @@
             <input type="number" id="shaft_speed" name="shaft_speed" step="0.01" value="0.5"
                    class="form-control form-control-sm">
         </div>
+
+        <!-- TA’MIRLANGANDAGI O‘ZGARISHLAR -->
+        <h3 class="mt-5">Ta’mirlangandagi o‘zgarishlar</h3>
+
+        <!-- 1) Qo‘shimcha tashqi devor qatlamlari -->
+        <h5 class="mt-4">Qo‘shimcha tashqi devor qatlamlari</h5>
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+            <tr>
+                <th>Qatlam</th>
+                <th>Qalinligi (m)</th>
+                <th>Turi</th>
+                <th>Qiymati</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php for($i=1; $i<=6; $i++): ?>
+                <tr>
+                    <td><?= $i ?></td>
+                    <td>
+                        <input type="number"
+                               name="additional_wall_layer[<?= $i ?>][thickness]"
+                               step="0.001"
+                               class="form-control form-control-sm"
+                               placeholder="0.000">
+                    </td>
+                    <td>
+                        <select name="additional_wall_layer[<?= $i ?>][type]"
+                                class="form-select form-select-sm">
+                            <option value="">Tanlang…</option>
+                            <?php foreach($wall_layer as $wl): ?>
+                                <option value="<?= $wl['id'] ?>">
+                                    <?= htmlspecialchars($wl['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number"
+                               name="additional_wall_layer[<?= $i ?>][type_v]"
+                               step="0.001"
+                               class="form-control form-control-sm"
+                               placeholder="0.000">
+                    </td>
+                </tr>
+            <?php endfor; ?>
+            </tbody>
+        </table>
+
+        <!-- 2) Qo‘shimcha izolyatsiya qatlami -->
+        <h5 class="mt-4">Qo‘shimcha izolyatsiya qatlami</h5>
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+            <tr>
+                <th>Qatlam</th>
+                <th>Qalinligi (m)</th>
+                <th>Turi</th>
+                <th>Qiymati</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php for($i=1; $i<=6; $i++): ?>
+                <tr>
+                    <td><?= $i ?></td>
+                    <td>
+                        <input type="number"
+                               name="insulation_layer[<?= $i ?>][thickness]"
+                               step="0.001"
+                               class="form-control form-control-sm"
+                               placeholder="0.000">
+                    </td>
+                    <td>
+                        <select name="insulation_layer[<?= $i ?>][type]"
+                                class="form-select form-select-sm">
+                            <option value="">Tanlang…</option>
+                            <?php foreach($insulationMaterials as $im): ?>
+                                <option value="<?= $im['id'] ?>">
+                                    <?= htmlspecialchars($im['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number"
+                               name="insulation_layer[<?= $i ?>][type_v]"
+                               step="0.001"
+                               class="form-control form-control-sm"
+                               placeholder="0.000">
+                    </td>
+                </tr>
+            <?php endfor; ?>
+            </tbody>
+        </table>
 
         <button type="submit" class="btn btn-primary">Hisoblash</button>
 
