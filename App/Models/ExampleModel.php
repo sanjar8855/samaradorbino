@@ -14,18 +14,8 @@ class ExampleModel {
         return $stmt->fetchAll();
     }
 
-    public function getAllCategories(): array {
-        $stmt = $this->db->query("SELECT * FROM categories");
-        return $stmt->fetchAll();
-    }
-
     public function getAllWithCatId(int $catId): array {
-        // – Prepared statement bilan xavfsizroq:
-        $stmt = $this->db->prepare("
-          SELECT * 
-          FROM subcategories 
-          WHERE category_id = :catId
-        ");
+        $stmt = $this->db->prepare("SELECT * FROM subcategories WHERE category_id = :catId");
         $stmt->execute(['catId' => $catId]);
         return $stmt->fetchAll();
     }
