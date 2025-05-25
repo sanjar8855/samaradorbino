@@ -3,8 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-spl_autoload_register(function($class) {
-    $file = __DIR__ . '/../' . str_replace('\\','/',$class) . '.php';
+spl_autoload_register(function ($class) {
+    $file = __DIR__ . '/../' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($file)) {
         require $file;
     }
@@ -23,75 +23,97 @@ $roofMaterials = $model->getAllWithCatId(5);
 $report = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $outsideTemp = (float)($_POST['outside_temp'] ?? 0);
-    $coldTemp = (float)($_POST['cold_temp'] ?? 0);
-    $degreeDays = (float)($_POST['degree_days'] ?? 0);
-    $buildingArea = (float)($_POST['building_area'] ?? 0);
-    $wallArea = (float)($_POST['wall_area'] ?? 0);
-    $windowArea = (float)($_POST['window_area'] ?? 0);
-    $doorArea = (float)($_POST['door_area'] ?? 0);
-    $shaftArea = (float)($_POST['shaft_area'] ?? 0);
-
-    $R = [];
-
-    $R['wall'] = 0;
-    foreach ($_POST['wall_layer'] as $layer) {
-        $t = (float)$layer['thickness'];
-        $k = (float)$layer['val'];
-        if ($k > 0) $R['wall'] += $t / $k;
+    $b11 = $_POST['init_wall_type'];
+    $c13 = $_POST['init_wall[1][thickness]'];
+    $d14 = $_POST['init_wall[1][val]'];
+    $e13 = $_POST['init_wall[2][thickness]'];
+    $f14 = $_POST['init_wall[2][val]'];
+    $g13 = $_POST['init_wall[3][thickness]'];
+    $h14 = $_POST['init_wall[3][val]'];
+    $i13 = $_POST['init_wall[4][thickness]'];
+    $j14 = $_POST['init_wall[4][val]'];
+    $k13 = $_POST['init_wall[5][thickness]'];
+    $l14 = $_POST['init_wall[5][val]'];
+    $m13 = $_POST['init_wall[6][thickness]'];
+    $n14 = $_POST['init_wall[6][val]'];
+    $bq1 = 1/8.7 + $c13/$d14 + $e13/$f14 + $g13/$h14 + $i13/$j14 + $k13/$l14 + $m13/$n14 + 1/23;
+    if($b11 == 1){
+        $b232 = 0.5*$bq1;
+    }
+    else{
+        $b232 = $bq1;
     }
 
-    $windowCoeffs = array_column($window_layer, 'perm_coeff', 'id');
-    $winId = $_POST['window_layer'] ?? null;
-    $R['window'] = isset($windowCoeffs[$winId]) ? (float)$windowCoeffs[$winId] : 0;
-
-    $R['door'] = 0;
-    foreach ($_POST['door_layer'] as $layer) {
-        $t = (float)$layer['thickness'];
-        $k = (float)$layer['val'];
-        if ($k > 0) $R['door'] += $t / $k;
-    }
-
-    $R['roof'] = 0;
-    foreach ($_POST['roof_layer'] as $layer) {
-        $t = (float)$layer['thickness'];
-        $k = (float)$layer['val'];
-        if ($k > 0) $R['roof'] += $t / $k;
-    }
-
-    $R['floor'] = 0;
-    foreach ($_POST['floor_layer'] as $layer) {
-        $t = (float)$layer['thickness'];
-        $k = (float)$layer['val'];
-        if ($k > 0) $R['floor'] += $t / $k;
-    }
-
-    $dT = abs($outsideTemp - $coldTemp);
-    $Q = [];
-
-    $Q['wall'] = $R['wall'] > 0 ? $wallArea * $dT * $degreeDays / $R['wall'] : 0;
-    $Q['window'] = $R['window'] > 0 ? $windowArea * $dT * $degreeDays / $R['window'] : 0;
-    $Q['door'] = $R['door'] > 0 ? $doorArea * $dT * $degreeDays / $R['door'] : 0;
-    $roofArea = $buildingArea;
-    $Q['roof'] = $R['roof'] > 0 ? $roofArea * $dT * $degreeDays / $R['roof'] : 0;
-    $floorArea = $buildingArea;
-    $Q['floor'] = $R['floor'] > 0 ? $floorArea * $dT * $degreeDays / $R['floor'] : 0;
-
-    $airChangeRate = 1.0;
-    $Q['vent'] = $shaftArea * $airChangeRate * $dT * 0.34 * 24 * 365;
-
-    $Q['total_current'] = array_sum($Q);
-
-    $compare_current = $buildingArea > 0
-        ? $Q['total_current'] / $buildingArea / 1000
-        : 0;
-
-    $compare_norm = 67.16;
-    $G = $compare_norm > 0
-        ? round(100 * ($compare_norm - $compare_current) / $compare_norm, 2)
-        : 0;
-
-    $report = compact('R', 'Q', 'compare_current', 'compare_norm', 'G');
+    // 1) POST ma’lumotlarini o‘qish
+//    $outsideTemp = (float)($_POST['outside_temp'] ?? 0);
+//    $coldTemp = (float)($_POST['cold_temp'] ?? 0);
+//    $degreeDays = (float)($_POST['degree_days'] ?? 0);
+//    $areas = [
+//        'wall' => (float)($_POST['wall_area'] ?? 0),
+//        'window' => (float)($_POST['window_area'] ?? 0),
+//        'door' => (float)($_POST['door_area'] ?? 0),
+//        'roof' => (float)($_POST['building_area'] ?? 0),
+//        'floor' => (float)($_POST['building_area'] ?? 0),
+//        'shaft' => (float)($_POST['shaft_area'] ?? 0),
+//    ];
+//
+//    // 2) R qiymatlarini hisoblash
+//    $R = [
+//        'wall' => 0, 'window' => 0, 'door' => 0, 'roof' => 0, 'floor' => 0
+//    ];
+//    // devor qatlamlari
+//    foreach ($_POST['init_wall'] as $L) {
+//        $t = (float)$L['thickness'];
+//        $k = (float)$L['val'];
+//        if ($k > 0) $R['wall'] += $t / $k;
+//    }
+//    // deraza — modeldan kelgan coeff
+//    $winCoeffs = array_column($window_layer, 'perm_coeff', 'id');
+//    $selWin = $_POST['init_window_type'] ?? null;
+//    $R['window'] = $winCoeffs[$selWin] ?? 0;
+//    // eshik
+//    foreach ($_POST['init_door_layer'] as $L) {
+//        $t = (float)$L['thickness'];
+//        $k = (float)$L['val'];
+//        if ($k > 0) $R['door'] += $t / $k;
+//    }
+//    // tom
+//    foreach ($_POST['init_roof_layer'] as $L) {
+//        $t = (float)$L['thickness'];
+//        $k = (float)$L['val'];
+//        if ($k > 0) $R['roof'] += $t / $k;
+//    }
+//    // pol
+//    foreach ($_POST['init_floor_layer'] as $L) {
+//        $t = (float)$L['thickness'];
+//        $k = (float)$L['val'];
+//        if ($k > 0) $R['floor'] += $t / $k;
+//    }
+//
+//    // 3) Q qiymatlari
+//    $dT = abs($outsideTemp - $coldTemp);
+//    $Q = [];
+//    foreach (['wall', 'window', 'door', 'roof', 'floor'] as $key) {
+//        $Q[$key] = $R[$key] > 0
+//            ? $areas[$key] * $dT * $degreeDays / $R[$key]
+//            : 0;
+//    }
+//    // ventilyatsiya
+//    $Q['vent'] = $areas['shaft'] * 1.0 * $dT * 0.34 * 24 * 365;
+//
+//    // jami
+//    $Q['total'] = array_sum($Q);
+//
+//    // solishtirma sarf (kVt/m2 y)
+//    $cmp_current = $areas['roof'] > 0
+//        ? $Q['total'] / $areas['roof'] / 1000
+//        : 0;
+//    $cmp_norm = 67.16; // me’yoriy
+//    $G = $cmp_norm > 0
+//        ? round(100 * ($cmp_norm - $cmp_current) / $cmp_norm, 2)
+//        : 0;
+//
+//    $report = compact('R', 'Q', 'cmp_current', 'cmp_norm', 'G');
 }
 
 ?>
@@ -100,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My MV Loyihasi</title>
+    <title>Energiya samarador bino</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -629,59 +651,163 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-primary">Hisoblash</button>
 
         </form>
-        <?php if ($report): ?>
-            <hr>
-            <h5>Natija hisobot</h5>
-            <table class="table table-sm table-bordered">
-                <thead class="table-light">
-                <tr>
-                    <th>Kontruksiya</th>
-                    <th>R (hozirgi)</th>
-                    <th>Yillik Q yo‘qotish (Vt·soat)</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ([
-                             'wall' => 'Tashqi devor',
-                             'window' => 'Tashqi deraza',
-                             'door' => 'Tashqi eshik',
-                             'roof' => 'Tom',
-                             'floor' => 'Pol',
-                             'vent' => 'Ventilyatsiya',
-                         ] as $key => $label):
-                    ?>
-                    <tr>
-                        <td><?= $label ?></td>
-                        <!-- R bo'lmasa 0 -->
-                        <td><?= number_format(($report['R'][$key] ?? 0), 2, '.', ',') ?></td>
-                        <!-- Q bo'lmasa 0 -->
-                        <td><?= number_format(($report['Q'][$key] ?? 0), 2, '.', ',') ?></td>
-                    </tr>
-                <?php endforeach; ?>
-                <tr class="fw-bold">
-                    <td>Jami</td>
-                    <td>-</td>
-                    <td><?= number_format(($report['Q']['total_current'] ?? 0), 2, '.', ',') ?></td>
-                </tr>
-                </tbody>
-            </table>
 
-            <table class="table table-sm">
-                <tr>
-                    <th>Me'yoriy solishtirma sarf</th>
-                    <td><?= number_format($report['compare_norm'], 2) ?> KWh/m²·yil</td>
-                </tr>
-                <tr>
-                    <th>Amaldagi solishtirma sarf</th>
-                    <td><?= number_format($report['compare_current'], 2) ?> KWh/m²·yil</td>
-                </tr>
-                <tr>
-                    <th>Samaradorlik o‘sishi (%)</th>
-                    <td><?= $report['G'] ?>%</td>
-                </tr>
-            </table>
-        <?php endif; ?>
+        <?php //if ($report): ?>
+            <hr>
+            <h3>Natija hisobot</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                    <tr>
+                        <th>To‘siq konstruksiyalar nomi</th>
+                        <th class="text-center">Mavjud holatdagi R&nbsp;(m²·°C)/Vt</th>
+                        <th class="text-center">Me'yoriy R&nbsp;(m²·°C)/Vt</th>
+                        <th class="text-center">Izolatsiyadan keyingi R&nbsp;(m²·°C)/Vt</th>
+                        <th class="text-center">Normativ R&nbsp;(m²·°C)/Vt</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Tashqi devor</td>
+                        <td class="text-center" id="b232">b232</td>
+                        <td class="text-center">2,20</td>
+                        <td class="text-center">3,34</td>
+                        <td class="text-center">0,98</td>
+                    </tr>
+                    <tr>
+                        <td>Tashqi deraza</td>
+                        <td class="text-center">0,15</td>
+                        <td class="text-center">0,53</td>
+                        <td class="text-center">0,36</td>
+                        <td class="text-center">—</td>
+                    </tr>
+                    <tr>
+                        <td>Tashqi eshik</td>
+                        <td class="text-center">0,16</td>
+                        <td class="text-center">0,59</td>
+                        <td class="text-center">0,94</td>
+                        <td class="text-center">—</td>
+                    </tr>
+                    <tr>
+                        <td>Tom qoplamasi</td>
+                        <td class="text-center">1,60</td>
+                        <td class="text-center">9,00</td>
+                        <td class="text-center">3,16</td>
+                        <td class="text-center">—</td>
+                    </tr>
+                    <tr>
+                        <td>Birinchi qavat pol</td>
+                        <td class="text-center">0,60</td>
+                        <td class="text-center">1,96</td>
+                        <td class="text-center">2,17</td>
+                        <td class="text-center">—</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 2‐jadval: Yillik issiqlik yo‘qotish -->
+            <h2 class="mt-5 mb-3">Yillik issiqlik yo‘qotish (Vt)</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                    <tr>
+                        <th>To‘siq konstruksiyalar nomi</th>
+                        <th class="text-end">Mavjud holatdagi yo‘qotish (Vt)</th>
+                        <th class="text-end">Izolatsiyadan keyingi yo‘qotish (Vt)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Tashqi devorlar</td>
+                        <td class="text-end">31 718 913,65</td>
+                        <td class="text-end">16 891 601,75</td>
+                    </tr>
+                    <tr>
+                        <td>Tashqi derazalar</td>
+                        <td class="text-end">124 267 275,00</td>
+                        <td class="text-end">51 778 031,25</td>
+                    </tr>
+                    <tr>
+                        <td>Tashqi eshiklar</td>
+                        <td class="text-end">3 514 757,46</td>
+                        <td class="text-end">592 731,00</td>
+                    </tr>
+                    <tr>
+                        <td>Tom yopmasi</td>
+                        <td class="text-end">18 149 277,77</td>
+                        <td class="text-end">9 174 165,19</td>
+                    </tr>
+                    <tr>
+                        <td>Yerto‘la yopmasi</td>
+                        <td class="text-end">48 035 122,38</td>
+                        <td class="text-end">13 383 076,88</td>
+                    </tr>
+                    <tr class="fw-bold">
+                        <td>Jami</td>
+                        <td class="text-end">225 685 346,26</td>
+                        <td class="text-end">91 819 606,07</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h2 class="mb-3">Qo‘shimcha hisoblar</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <!-- 1. Ventilyatsiya yo‘qotishi -->
+                        <tr class="table-light">
+                            <th colspan="4" class="text-center">
+                                Ventilyatsiyadan yo‘qolayotgan issiqlik miqdori: Vt.
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                40 305 274,86
+                            </td>
+                        </tr>
+
+                        <!-- 2. Umumiy yo‘qotishlar -->
+                        <tr class="table-light">
+                            <th colspan="2">Mavjud holatdagi jami yo‘qotish: Vt.</th>
+                            <th colspan="2">Izolyatsiyadan keyingi jami yo‘qotish: Vt.</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-end">265 990 621,10</td>
+                            <td colspan="2" class="text-end">132 124 880,90</td>
+                        </tr>
+
+                        <!-- 3. Solishtirma issiqlik miqdori -->
+                        <tr class="table-light">
+                            <th>Mavjud holatdagi solishtirma issiqlik: kVt/m²·yil</th>
+                            <th class="text-end">135,21</th>
+                            <th>Izolyatsiyadan keyingi solishtirma issiqlik: kVt/m²·yil</th>
+                            <th class="text-end">67,16</th>
+                        </tr>
+
+                        <!-- 4. Me'yoriy yillik solishtirma sarf -->
+                        <tr class="table-light">
+                            <th colspan="4" class="text-center">
+                                Bino uchun me'yoriy yillik solishtirma issiqlik sarfi: kVt/m²·yil<br>
+                                <small>(issiqlik taʼminoti va ventilyatsiyadan yo‘qotilayotgan issiqlik miqdori
+                                    uchun)</small>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">68,31</td>
+                        </tr>
+
+                        <!-- 5. Energiya samaradorlik toifalari -->
+                        <tr class="table-light">
+                            <th>Mavjud holatdagi energiya samaradorlik toifasi</th>
+                            <th class="text-center">G (97,94%)</th>
+                            <th>Taʼmirdan keyingi energiya samaradorlik toifasi</th>
+                            <th class="text-center">D (-1,68%)</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <?php //endif; ?>
 
     </div>
 
