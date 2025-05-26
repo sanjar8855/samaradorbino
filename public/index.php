@@ -36,13 +36,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $l14 = $_POST['init_wall[5][val]'];
     $m13 = $_POST['init_wall[6][thickness]'];
     $n14 = $_POST['init_wall[6][val]'];
-    $bq1 = 1/8.7 + $c13/$d14 + $e13/$f14 + $g13/$h14 + $i13/$j14 + $k13/$l14 + $m13/$n14 + 1/23;
-    if($b11 == 1){
-        $b232 = 0.5*$bq1;
-    }
-    else{
+    $bq1 = 1 / 8.7 + $c13 / $d14 + $e13 / $f14 + $g13 / $h14 + $i13 / $j14 + $k13 / $l14 + $m13 / $n14 + 1 / 23;
+    if ($b11 == 1) {
+        $b232 = 0.5 * $bq1;
+    } else {
         $b232 = $bq1;
     }
+    $b7 = $_POST['floors'];
+    $b55 = $_POST['degree_days'];
+    if ($b7 <= 3) {
+        if ($b55 < 2000) {
+            $c232 = 1.6;
+        } else {
+            if ($b55 < 3000) {
+                $c232 = 2;
+            } else {
+                $c232 = 2.4;
+            }
+        }
+    } else {
+        if ($b55 < 2000) {
+            $c232 = 1.8;
+        } else {
+            if ($b55 < 3000) {
+                $c232 = 2.2;
+            } else {
+                $c232 = 2.6;
+            }
+        }
+    }
+    $c35=0;
+    $d36=0;
+    $e35=0;
+    $f36=0;
+    $g35=0;
+    $h36=0;
+    $i35=0;
+    $j36=0;
+    $k35=0;
+    $l36=0;
+    $m35=0;
+    $n36=0;
+    $d232=$b232+$c35/$d36+$e35/$f36+$g35/$h36+$i35/$j36+$k35/$l36+$m35/$n36;
+
 
     // 1) POST ma’lumotlarini o‘qish
 //    $outsideTemp = (float)($_POST['outside_temp'] ?? 0);
@@ -653,160 +689,160 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <?php //if ($report): ?>
-            <hr>
-            <h3>Natija hisobot</h3>
+        <hr>
+        <h3>Natija hisobot</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>To‘siq konstruksiyalar nomi</th>
+                    <th class="text-center">Mavjud holatdagi R&nbsp;(m²·°C)/Vt</th>
+                    <th class="text-center">Me'yoriy R&nbsp;(m²·°C)/Vt</th>
+                    <th class="text-center">Izolatsiyadan keyingi R&nbsp;(m²·°C)/Vt</th>
+                    <th class="text-center">Normativ R&nbsp;(m²·°C)/Vt</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Tashqi devor</td>
+                    <td class="text-center" id="b232">b232</td>
+                    <td class="text-center">2,20</td>
+                    <td class="text-center">3,34</td>
+                    <td class="text-center">0,98</td>
+                </tr>
+                <tr>
+                    <td>Tashqi deraza</td>
+                    <td class="text-center">0,15</td>
+                    <td class="text-center">0,53</td>
+                    <td class="text-center">0,36</td>
+                    <td class="text-center">—</td>
+                </tr>
+                <tr>
+                    <td>Tashqi eshik</td>
+                    <td class="text-center">0,16</td>
+                    <td class="text-center">0,59</td>
+                    <td class="text-center">0,94</td>
+                    <td class="text-center">—</td>
+                </tr>
+                <tr>
+                    <td>Tom qoplamasi</td>
+                    <td class="text-center">1,60</td>
+                    <td class="text-center">9,00</td>
+                    <td class="text-center">3,16</td>
+                    <td class="text-center">—</td>
+                </tr>
+                <tr>
+                    <td>Birinchi qavat pol</td>
+                    <td class="text-center">0,60</td>
+                    <td class="text-center">1,96</td>
+                    <td class="text-center">2,17</td>
+                    <td class="text-center">—</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 2‐jadval: Yillik issiqlik yo‘qotish -->
+        <h2 class="mt-5 mb-3">Yillik issiqlik yo‘qotish (Vt)</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>To‘siq konstruksiyalar nomi</th>
+                    <th class="text-end">Mavjud holatdagi yo‘qotish (Vt)</th>
+                    <th class="text-end">Izolatsiyadan keyingi yo‘qotish (Vt)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Tashqi devorlar</td>
+                    <td class="text-end">31 718 913,65</td>
+                    <td class="text-end">16 891 601,75</td>
+                </tr>
+                <tr>
+                    <td>Tashqi derazalar</td>
+                    <td class="text-end">124 267 275,00</td>
+                    <td class="text-end">51 778 031,25</td>
+                </tr>
+                <tr>
+                    <td>Tashqi eshiklar</td>
+                    <td class="text-end">3 514 757,46</td>
+                    <td class="text-end">592 731,00</td>
+                </tr>
+                <tr>
+                    <td>Tom yopmasi</td>
+                    <td class="text-end">18 149 277,77</td>
+                    <td class="text-end">9 174 165,19</td>
+                </tr>
+                <tr>
+                    <td>Yerto‘la yopmasi</td>
+                    <td class="text-end">48 035 122,38</td>
+                    <td class="text-end">13 383 076,88</td>
+                </tr>
+                <tr class="fw-bold">
+                    <td>Jami</td>
+                    <td class="text-end">225 685 346,26</td>
+                    <td class="text-end">91 819 606,07</td>
+                </tr>
+                </tbody>
+            </table>
+            <h2 class="mb-3">Qo‘shimcha hisoblar</h2>
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <thead class="table-light">
-                    <tr>
-                        <th>To‘siq konstruksiyalar nomi</th>
-                        <th class="text-center">Mavjud holatdagi R&nbsp;(m²·°C)/Vt</th>
-                        <th class="text-center">Me'yoriy R&nbsp;(m²·°C)/Vt</th>
-                        <th class="text-center">Izolatsiyadan keyingi R&nbsp;(m²·°C)/Vt</th>
-                        <th class="text-center">Normativ R&nbsp;(m²·°C)/Vt</th>
-                    </tr>
-                    </thead>
                     <tbody>
-                    <tr>
-                        <td>Tashqi devor</td>
-                        <td class="text-center" id="b232">b232</td>
-                        <td class="text-center">2,20</td>
-                        <td class="text-center">3,34</td>
-                        <td class="text-center">0,98</td>
+                    <!-- 1. Ventilyatsiya yo‘qotishi -->
+                    <tr class="table-light">
+                        <th colspan="4" class="text-center">
+                            Ventilyatsiyadan yo‘qolayotgan issiqlik miqdori: Vt.
+                        </th>
                     </tr>
                     <tr>
-                        <td>Tashqi deraza</td>
-                        <td class="text-center">0,15</td>
-                        <td class="text-center">0,53</td>
-                        <td class="text-center">0,36</td>
-                        <td class="text-center">—</td>
+                        <td colspan="4" class="text-center">
+                            40 305 274,86
+                        </td>
+                    </tr>
+
+                    <!-- 2. Umumiy yo‘qotishlar -->
+                    <tr class="table-light">
+                        <th colspan="2">Mavjud holatdagi jami yo‘qotish: Vt.</th>
+                        <th colspan="2">Izolyatsiyadan keyingi jami yo‘qotish: Vt.</th>
                     </tr>
                     <tr>
-                        <td>Tashqi eshik</td>
-                        <td class="text-center">0,16</td>
-                        <td class="text-center">0,59</td>
-                        <td class="text-center">0,94</td>
-                        <td class="text-center">—</td>
+                        <td colspan="2" class="text-end">265 990 621,10</td>
+                        <td colspan="2" class="text-end">132 124 880,90</td>
+                    </tr>
+
+                    <!-- 3. Solishtirma issiqlik miqdori -->
+                    <tr class="table-light">
+                        <th>Mavjud holatdagi solishtirma issiqlik: kVt/m²·yil</th>
+                        <th class="text-end">135,21</th>
+                        <th>Izolyatsiyadan keyingi solishtirma issiqlik: kVt/m²·yil</th>
+                        <th class="text-end">67,16</th>
+                    </tr>
+
+                    <!-- 4. Me'yoriy yillik solishtirma sarf -->
+                    <tr class="table-light">
+                        <th colspan="4" class="text-center">
+                            Bino uchun me'yoriy yillik solishtirma issiqlik sarfi: kVt/m²·yil<br>
+                            <small>(issiqlik taʼminoti va ventilyatsiyadan yo‘qotilayotgan issiqlik miqdori
+                                uchun)</small>
+                        </th>
                     </tr>
                     <tr>
-                        <td>Tom qoplamasi</td>
-                        <td class="text-center">1,60</td>
-                        <td class="text-center">9,00</td>
-                        <td class="text-center">3,16</td>
-                        <td class="text-center">—</td>
+                        <td colspan="4" class="text-center">68,31</td>
                     </tr>
-                    <tr>
-                        <td>Birinchi qavat pol</td>
-                        <td class="text-center">0,60</td>
-                        <td class="text-center">1,96</td>
-                        <td class="text-center">2,17</td>
-                        <td class="text-center">—</td>
+
+                    <!-- 5. Energiya samaradorlik toifalari -->
+                    <tr class="table-light">
+                        <th>Mavjud holatdagi energiya samaradorlik toifasi</th>
+                        <th class="text-center">G (97,94%)</th>
+                        <th>Taʼmirdan keyingi energiya samaradorlik toifasi</th>
+                        <th class="text-center">D (-1,68%)</th>
                     </tr>
                     </tbody>
                 </table>
             </div>
-
-            <!-- 2‐jadval: Yillik issiqlik yo‘qotish -->
-            <h2 class="mt-5 mb-3">Yillik issiqlik yo‘qotish (Vt)</h2>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="table-light">
-                    <tr>
-                        <th>To‘siq konstruksiyalar nomi</th>
-                        <th class="text-end">Mavjud holatdagi yo‘qotish (Vt)</th>
-                        <th class="text-end">Izolatsiyadan keyingi yo‘qotish (Vt)</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Tashqi devorlar</td>
-                        <td class="text-end">31 718 913,65</td>
-                        <td class="text-end">16 891 601,75</td>
-                    </tr>
-                    <tr>
-                        <td>Tashqi derazalar</td>
-                        <td class="text-end">124 267 275,00</td>
-                        <td class="text-end">51 778 031,25</td>
-                    </tr>
-                    <tr>
-                        <td>Tashqi eshiklar</td>
-                        <td class="text-end">3 514 757,46</td>
-                        <td class="text-end">592 731,00</td>
-                    </tr>
-                    <tr>
-                        <td>Tom yopmasi</td>
-                        <td class="text-end">18 149 277,77</td>
-                        <td class="text-end">9 174 165,19</td>
-                    </tr>
-                    <tr>
-                        <td>Yerto‘la yopmasi</td>
-                        <td class="text-end">48 035 122,38</td>
-                        <td class="text-end">13 383 076,88</td>
-                    </tr>
-                    <tr class="fw-bold">
-                        <td>Jami</td>
-                        <td class="text-end">225 685 346,26</td>
-                        <td class="text-end">91 819 606,07</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <h2 class="mb-3">Qo‘shimcha hisoblar</h2>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <tbody>
-                        <!-- 1. Ventilyatsiya yo‘qotishi -->
-                        <tr class="table-light">
-                            <th colspan="4" class="text-center">
-                                Ventilyatsiyadan yo‘qolayotgan issiqlik miqdori: Vt.
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-center">
-                                40 305 274,86
-                            </td>
-                        </tr>
-
-                        <!-- 2. Umumiy yo‘qotishlar -->
-                        <tr class="table-light">
-                            <th colspan="2">Mavjud holatdagi jami yo‘qotish: Vt.</th>
-                            <th colspan="2">Izolyatsiyadan keyingi jami yo‘qotish: Vt.</th>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="text-end">265 990 621,10</td>
-                            <td colspan="2" class="text-end">132 124 880,90</td>
-                        </tr>
-
-                        <!-- 3. Solishtirma issiqlik miqdori -->
-                        <tr class="table-light">
-                            <th>Mavjud holatdagi solishtirma issiqlik: kVt/m²·yil</th>
-                            <th class="text-end">135,21</th>
-                            <th>Izolyatsiyadan keyingi solishtirma issiqlik: kVt/m²·yil</th>
-                            <th class="text-end">67,16</th>
-                        </tr>
-
-                        <!-- 4. Me'yoriy yillik solishtirma sarf -->
-                        <tr class="table-light">
-                            <th colspan="4" class="text-center">
-                                Bino uchun me'yoriy yillik solishtirma issiqlik sarfi: kVt/m²·yil<br>
-                                <small>(issiqlik taʼminoti va ventilyatsiyadan yo‘qotilayotgan issiqlik miqdori
-                                    uchun)</small>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-center">68,31</td>
-                        </tr>
-
-                        <!-- 5. Energiya samaradorlik toifalari -->
-                        <tr class="table-light">
-                            <th>Mavjud holatdagi energiya samaradorlik toifasi</th>
-                            <th class="text-center">G (97,94%)</th>
-                            <th>Taʼmirdan keyingi energiya samaradorlik toifasi</th>
-                            <th class="text-center">D (-1,68%)</th>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        </div>
         <?php //endif; ?>
 
     </div>
