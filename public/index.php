@@ -65,18 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-    $c35=0;
-    $d36=0;
-    $e35=0;
-    $f36=0;
-    $g35=0;
-    $h36=0;
-    $i35=0;
-    $j36=0;
-    $k35=0;
-    $l36=0;
-    $m35=0;
-    $n36=0;
+
+    $c35=$_POST['rep_wall[1][thickness]'];;
+    $d36=$_POST['rep_wall[1][val]'];
+    $e35=$_POST['rep_wall[2][thickness]'];;
+    $f36=$_POST['rep_wall[2][val]'];
+    $g35=$_POST['rep_wall[3][thickness]'];;
+    $h36=$_POST['rep_wall[3][val]'];
+    $i35=$_POST['rep_wall[4][thickness]'];;
+    $j36=$_POST['rep_wall[4][val]'];
+    $k35=$_POST['rep_wall[5][thickness]'];;
+    $l36=$_POST['rep_wall[5][val]'];
+    $m35=$_POST['rep_wall[6][thickness]'];;
+    $n36=$_POST['rep_wall[6][val]'];
     $d232=$b232+$c35/$d36+$e35/$f36+$g35/$h36+$i35/$j36+$k35/$l36+$m35/$n36;
 
 
