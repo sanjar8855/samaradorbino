@@ -44,113 +44,169 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $b7 = $_POST['floors'];
     $b55 = $_POST['degree_days'];
+    $b56 = $_POST['roof_n'];
+    $b57 = $_POST['cellar_n'];
+
     if ($b7 <= 3) {
         if ($b55 < 2000) {
             $c232 = 1.6;
+            $c235 = 2.8 * $b56;
+            $c236 = 2.6 * $b57;
         } else {
             if ($b55 < 3000) {
                 $c232 = 2;
+                $c235 = 3.2 * $b56;
+                $c236 = 3 * $b57;
             } else {
                 $c232 = 2.4;
+                $c235 = 3.8 * $b56;
+                $c236 = 3.4 * $b57;
             }
         }
     } else {
         if ($b55 < 2000) {
             $c232 = 1.8;
+            $c235 = 2.6 * $b56;
+            $c236 = 2.4 * $b57;
         } else {
             if ($b55 < 3000) {
                 $c232 = 2.2;
+                $c235 = 3 * $b56;
+                $c236 = 2.8 * $b57;
             } else {
                 $c232 = 2.6;
+                $c235 = 3.6 * $b56;
+                $c236 = 3.2 * $b57;
             }
         }
     }
 
-    $c35=$_POST['rep_wall[1][thickness]'];;
-    $d36=$_POST['rep_wall[1][val]'];
-    $e35=$_POST['rep_wall[2][thickness]'];;
-    $f36=$_POST['rep_wall[2][val]'];
-    $g35=$_POST['rep_wall[3][thickness]'];;
-    $h36=$_POST['rep_wall[3][val]'];
-    $i35=$_POST['rep_wall[4][thickness]'];;
-    $j36=$_POST['rep_wall[4][val]'];
-    $k35=$_POST['rep_wall[5][thickness]'];;
-    $l36=$_POST['rep_wall[5][val]'];
-    $m35=$_POST['rep_wall[6][thickness]'];;
-    $n36=$_POST['rep_wall[6][val]'];
-    $d232=$b232+$c35/$d36+$e35/$f36+$g35/$h36+$i35/$j36+$k35/$l36+$m35/$n36;
+    $c35 = $_POST['rep_wall[1][thickness]'];;
+    $d36 = $_POST['rep_wall[1][val]'];
+    $e35 = $_POST['rep_wall[2][thickness]'];;
+    $f36 = $_POST['rep_wall[2][val]'];
+    $g35 = $_POST['rep_wall[3][thickness]'];;
+    $h36 = $_POST['rep_wall[3][val]'];
+    $i35 = $_POST['rep_wall[4][thickness]'];;
+    $j36 = $_POST['rep_wall[4][val]'];
+    $k35 = $_POST['rep_wall[5][thickness]'];;
+    $l36 = $_POST['rep_wall[5][val]'];
+    $m35 = $_POST['rep_wall[6][thickness]'];;
+    $n36 = $_POST['rep_wall[6][val]'];
+    $d232 = $b232 + $c35 / $d36 + $e35 / $f36 + $g35 / $h36 + $i35 / $j36 + $k35 / $l36 + $m35 / $n36;
+
+    $b4 = $_POST['cold_temp'];
+    $b52 = $_POST['outside_temp'];
+    $e232 = ($b4 - $b52) / (4 * 8.7);
+
+    $b233 = $model->getPermCoeffBySubcatId($_POST['init_window_type']);
+    if ($b55 < 2000) {
+        $c233 = 0.45;
+    } else {
+        $c233 = 0.53;
+    }
+    $d233 = $model->getPermCoeffBySubcatId($_POST['rep_window_type']);
+    $b234 = $model->getPermCoeffBySubcatId($_POST['init_door_type']);
+    $c234 = $e232 * 0.6;
+    $d234 = $model->getPermCoeffBySubcatId($_POST['rep_door_type']);
+
+    $c22 = $_POST['init_roof_layer[1][thickness]'];;
+    $d23 = $_POST['init_roof_layer[1][val]'];;
+    $e22 = $_POST['init_roof_layer[2][thickness]'];;
+    $f23 = $_POST['init_roof_layer[2][val]'];;
+    $g22 = $_POST['init_roof_layer[3][thickness]'];;
+    $h23 = $_POST['init_roof_layer[3][val]'];;
+    $i22 = $_POST['init_roof_layer[4][thickness]'];;
+    $j23 = $_POST['init_roof_layer[4][val]'];;
+    $k22 = $_POST['init_roof_layer[5][thickness]'];;
+    $l23 = $_POST['init_roof_layer[5][val]'];;
+    $m22 = $_POST['init_roof_layer[6][thickness]'];;
+    $n23 = $_POST['init_roof_layer[6][val]'];;
+    $b235 = 1 / 8.7 + $c22 / $d23 + $e22 / $f23 + $g22 / $h23 + $i22 / $j23 + $k22 / $l23 + $m22 / $n23 + 1 / 12;
+    $c44 = $_POST['rep_roof_layer[1][thickness]'];
+    $d45 = $_POST['rep_roof_layer[1][val]'];
+    $e44 = $_POST['rep_roof_layer[2][thickness]'];
+    $f45 = $_POST['rep_roof_layer[2][val]'];
+    $g44 = $_POST['rep_roof_layer[3][thickness]'];
+    $h45 = $_POST['rep_roof_layer[3][val]'];
+    $i44 = $_POST['rep_roof_layer[4][thickness]'];
+    $j45 = $_POST['rep_roof_layer[4][val]'];
+    $k44 = $_POST['rep_roof_layer[5][thickness]'];
+    $l45 = $_POST['rep_roof_layer[5][val]'];
+    $m44 = $_POST['rep_roof_layer[6][thickness]'];
+    $n45 = $_POST['rep_roof_layer[6][val]'];
+    $d235 = $b235 + $c44 / $d45 + $e44 / $f45 + $g44 / $h45 + $i44 / $j45 + $k44 / $l45 + $m44 / $n45;
 
 
-    // 1) POST ma’lumotlarini o‘qish
-//    $outsideTemp = (float)($_POST['outside_temp'] ?? 0);
-//    $coldTemp = (float)($_POST['cold_temp'] ?? 0);
-//    $degreeDays = (float)($_POST['degree_days'] ?? 0);
-//    $areas = [
-//        'wall' => (float)($_POST['wall_area'] ?? 0),
-//        'window' => (float)($_POST['window_area'] ?? 0),
-//        'door' => (float)($_POST['door_area'] ?? 0),
-//        'roof' => (float)($_POST['building_area'] ?? 0),
-//        'floor' => (float)($_POST['building_area'] ?? 0),
-//        'shaft' => (float)($_POST['shaft_area'] ?? 0),
-//    ];
-//
-//    // 2) R qiymatlarini hisoblash
-//    $R = [
-//        'wall' => 0, 'window' => 0, 'door' => 0, 'roof' => 0, 'floor' => 0
-//    ];
-//    // devor qatlamlari
-//    foreach ($_POST['init_wall'] as $L) {
-//        $t = (float)$L['thickness'];
-//        $k = (float)$L['val'];
-//        if ($k > 0) $R['wall'] += $t / $k;
-//    }
-//    // deraza — modeldan kelgan coeff
-//    $winCoeffs = array_column($window_layer, 'perm_coeff', 'id');
-//    $selWin = $_POST['init_window_type'] ?? null;
-//    $R['window'] = $winCoeffs[$selWin] ?? 0;
-//    // eshik
-//    foreach ($_POST['init_door_layer'] as $L) {
-//        $t = (float)$L['thickness'];
-//        $k = (float)$L['val'];
-//        if ($k > 0) $R['door'] += $t / $k;
-//    }
-//    // tom
-//    foreach ($_POST['init_roof_layer'] as $L) {
-//        $t = (float)$L['thickness'];
-//        $k = (float)$L['val'];
-//        if ($k > 0) $R['roof'] += $t / $k;
-//    }
-//    // pol
-//    foreach ($_POST['init_floor_layer'] as $L) {
-//        $t = (float)$L['thickness'];
-//        $k = (float)$L['val'];
-//        if ($k > 0) $R['floor'] += $t / $k;
-//    }
-//
-//    // 3) Q qiymatlari
-//    $dT = abs($outsideTemp - $coldTemp);
-//    $Q = [];
-//    foreach (['wall', 'window', 'door', 'roof', 'floor'] as $key) {
-//        $Q[$key] = $R[$key] > 0
-//            ? $areas[$key] * $dT * $degreeDays / $R[$key]
-//            : 0;
-//    }
-//    // ventilyatsiya
-//    $Q['vent'] = $areas['shaft'] * 1.0 * $dT * 0.34 * 24 * 365;
-//
-//    // jami
-//    $Q['total'] = array_sum($Q);
-//
-//    // solishtirma sarf (kVt/m2 y)
-//    $cmp_current = $areas['roof'] > 0
-//        ? $Q['total'] / $areas['roof'] / 1000
-//        : 0;
-//    $cmp_norm = 67.16; // me’yoriy
-//    $G = $cmp_norm > 0
-//        ? round(100 * ($cmp_norm - $cmp_current) / $cmp_norm, 2)
-//        : 0;
-//
-//    $report = compact('R', 'Q', 'cmp_current', 'cmp_norm', 'G');
+    $c26 = $_POST['init_floor_layer[1][thickness]'];
+    $d27 = $_POST['init_floor_layer[1][val]'];
+    $e26 = $_POST['init_floor_layer[2][thickness]'];
+    $f27 = $_POST['init_floor_layer[2][val]'];
+    $g26 = $_POST['init_floor_layer[3][thickness]'];
+    $h27 = $_POST['init_floor_layer[3][val]'];
+    $i26 = $_POST['init_floor_layer[4][thickness]'];
+    $j27 = $_POST['init_floor_layer[4][val]'];
+    $k26 = $_POST['init_floor_layer[5][thickness]'];
+    $l27 = $_POST['init_floor_layer[5][val]'];
+    $m26 = $_POST['init_floor_layer[6][thickness]'];
+    $n27 = $_POST['init_floor_layer[6][val]'];
+
+    $b236 = 1 / 8.7 + $c26 / $d27 + $e26 / $f27 + $g26 / $h27 + $i26 / $j27 + $k26 / $l27 + $m26 / $n27 + 1 / 12;
+    $c48 = $_POST['rep_floor_layer[1][thickness]'];
+    $d49 = $_POST['rep_floor_layer[1][val]'];
+    $e48 = $_POST['rep_floor_layer[2][thickness]'];
+    $f49 = $_POST['rep_floor_layer[2][val]'];
+    $g48 = $_POST['rep_floor_layer[3][thickness]'];
+    $h49 = $_POST['rep_floor_layer[3][val]'];
+    $i48 = $_POST['rep_floor_layer[4][thickness]'];
+    $j49 = $_POST['rep_floor_layer[4][val]'];
+    $k48 = $_POST['rep_floor_layer[5][thickness]'];
+    $l49 = $_POST['rep_floor_layer[5][val]'];
+    $m48 = $_POST['rep_floor_layer[6][thickness]'];
+    $n49 = $_POST['rep_floor_layer[6][val]'];
+    $d236 = $b236 + $c48/$d49 + $e48/$f49 + $g48/$h49 + $i48/$j49 + $k48/$l49 + $m48/$n49;
+
+    $b8 = $_POST['wall_area'];
+    $b9 = $_POST['window_area'];
+    $b10 = $_POST['door_area'];
+    $b6 = $_POST['heated_area'];
+    $b53 = $_POST['avg_below10_temp'];
+    $b54 = $_POST['duration_below10'];
+    $b238 = $b8 * ($b4-$b53) * 24 * $b54 / $b232;
+    $b239 = $b9 * ($b4-$b53) * 24 * $b54 / $b233;
+    $b240 = $b10 * ($b4-$b53) * 24 * $b54 / $b234;
+    $b241 = $b6 * ($b4-$b53) * 24 * $b54 / $b235;
+    $b242 = $b6 * ($b4-$b53) * 24 * $b54 / $b236;
+    $c238 = $b8 * ($b4-$b53) * 24 * $b54 / $d232;
+    $c239 = $b9 * ($b4-$b53) * 24 * $b54 / $d233;
+    $c240 = $b10 * ($b4-$b53) * 24 * $b54 / $d234;
+    $c241 = $b6 * ($b4-$b53) * 24 * $b54 / $d235;
+    $c242 = $b6 * ($b4-$b53) * 24 * $b54 / $d236;
+
+    $b243 = $b238 + $b239 + $b240 + $b241 + $b242;
+    $c243 = $c238 + $c239 + $c240 + $c241 + $c242;
+
+    $b28 = $_POST['shaft_area'];
+    $b29 = $_POST['shaft_count'];
+    $b30 = $_POST['shaft_speed'];
+    $a245=1.2*1005*$b28*$b29*$b30*($b4-$b53)*24*132;
+
+    $a247 = $b243 + $a245;
+    $b247 = $c243 + $a245;
+
+    $a249 = $b243 + $a245;
+
+    $closest = $model->getClosestStandardHeat($b55);
+
+    if ($closest) {
+        $closestId    = $closest['id'];
+        $closestValue = $closest['degrees_per_day'];
+        echo "Eng yaqin id = $closestId, qiymat = $closestValue";
+    } else {
+        echo "Hech qanday satr topilmadi.";
+    }
+
+    //$b7 - qatavat;
 }
 
 ?>
@@ -255,6 +311,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="door_area" class="form-label small">Tashqi eshiklar yuzasi (m²)</label>
                 <input type="number" id="door_area" name="door_area" step="0.01"
                        class="form-control form-control-sm" value="9.45" required>
+            </div>
+
+            <div class="col-6 col-md-6">
+                <label for="roof_n" class="form-label small">Tom qoplamasi uchun n qiymati</label>
+                <input type="number" class="form-control form-control-sm" id="roof_n" name="roof_n" value="3"
+                       step="0.01">
+            </div>
+
+            <div class="col-6 col-md-6">
+                <label for="cellar_n" class="form-label small">Devorida yorug’lik oralig’lari boʻlgan isitilmaydigan
+                    yertoʻla qoplamalari uchun</label>
+                <input type="number" class="form-control form-control-sm" id="cellar_n" name="cellar_n" value="0.7"
+                       step="0.01">
             </div>
 
             <div class="col-12">
@@ -707,9 +776,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <tr>
                     <td>Tashqi devor</td>
                     <td class="text-center" id="b232">b232</td>
-                    <td class="text-center">2,20</td>
-                    <td class="text-center">3,34</td>
-                    <td class="text-center">0,98</td>
+                    <td class="text-center">c232</td>
+                    <td class="text-center">d232</td>
+                    <td class="text-center">e232</td>
                 </tr>
                 <tr>
                     <td>Tashqi deraza</td>
