@@ -57,11 +57,11 @@ class ExampleModel {
     public function getClosestStandardHeat(float $value): ?array
     {
         $sql = "
-      SELECT id, degrees_per_day
-        FROM standard_heats
-    ORDER BY ABS(degrees_per_day - :val)
-       LIMIT 1
-    ";
+              SELECT *
+                FROM standard_heats
+            ORDER BY ABS(degrees_per_day - :val)
+               LIMIT 1
+            ";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['val' => $value]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

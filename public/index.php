@@ -199,14 +199,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $closest = $model->getClosestStandardHeat($b55);
 
     if ($closest) {
-        $closestId    = $closest['id'];
-        $closestValue = $closest['degrees_per_day'];
-        echo "Eng yaqin id = $closestId, qiymat = $closestValue";
-    } else {
-        echo "Hech qanday satr topilmadi.";
+        $key = $closest["v".$b7];
+        $a251=0;
     }
 
     //$b7 - qatavat;
+
+    function getCategoryWithPercent(float $a249, float $a251): string
+    {
+        if ($a251 == 0) {
+            // nolga bo‘lish xatosini oldini olamiz
+            return '–';
+        }
+
+        $ratio = ($a249 - $a251) / $a251;
+
+        if ($ratio < -0.40) {
+            $category = 'A';
+        } elseif ($ratio < -0.26) {
+            $category = 'B';
+        } elseif ($ratio < -0.11) {
+            $category = 'C';
+        } elseif ($ratio <= 0.04) {
+            $category = 'D';
+        } elseif ($ratio <= 0.14) {
+            $category = 'E';
+        } elseif ($ratio <= 0.25) {
+            $category = 'F';
+        } else {
+            $category = 'G';
+        }
+
+        // Foizni formatlash (0.00%)
+        $percentText = number_format($ratio * 100, 2, ',', '') . '%';
+
+        return sprintf('%s (%s)', $category, $percentText);
+    }
+
+    $a253 = getCategoryWithPercent($a249, $a251);
+
+
 }
 
 ?>
