@@ -1,20 +1,27 @@
 <?php
+
 namespace App\Models;
 
-class ExampleModel {
+use PDO;
+
+class ExampleModel
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $cfg = require __DIR__ . '/../../config/config.php';
         $this->db = Database::getInstance($cfg['db']);
     }
 
-    public function getAllRegions(): array {
+    public function getAllRegions(): array
+    {
         $stmt = $this->db->query("SELECT * FROM regions ");
         return $stmt->fetchAll();
     }
 
-    public function getAllWithCatId(int $catId): array {
+    public function getAllWithCatId(int $catId): array
+    {
         $stmt = $this->db->prepare("SELECT * FROM subcategories WHERE category_id = :catId");
         $stmt->execute(['catId' => $catId]);
         return $stmt->fetchAll();
@@ -42,7 +49,7 @@ class ExampleModel {
         $coeff = $stmt->fetchColumn();
 
         return ($coeff !== false)
-            ? (float) $coeff
+            ? (float)$coeff
             : null;
     }
 
@@ -66,5 +73,41 @@ class ExampleModel {
         $stmt->execute(['val' => $value]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row ?: null;
+    }
+
+    /**
+     * $value ga eng yaqin pastki va yuqori degrees_per_day qiymatli satrlarni qaytaradi.
+     *
+     * @param float $value
+     * @return array{
+     *     lower: array<string,mixed>|null,
+     *     upper: array<string,mixed>|null
+     * }
+     */
+    public function getBoundingStandardHeats(float $value): array
+    {
+        // 1) Pastki bound: degrees_per_day <= $value dan eng kattasi
+        $sqlLow = "
+            SELECT * FROM standard_heats
+             WHERE degrees_per_day <= :val
+             ORDER BY degrees_per_day DESC
+             LIMIT 1
+        ";
+        $stmtLow = $this->db->prepare($sqlLow);
+        $stmtLow->execute(['val' => $value]);
+        $lower = $stmtLow->fetch(PDO::FETCH_ASSOC) ?: null;
+
+        // 2) Yuqori bound: degrees_per_day >= $value dan eng kichigi
+        $sqlHigh = "
+            SELECT * FROM standard_heats
+             WHERE degrees_per_day >= :val
+             ORDER BY degrees_per_day ASC
+             LIMIT 1
+        ";
+        $stmtHigh = $this->db->prepare($sqlHigh);
+        $stmtHigh->execute(['val' => $value]);
+        $upper = $stmtHigh->fetch(PDO::FETCH_ASSOC) ?: null;
+
+        return ['lower' => $lower, 'upper' => $upper];
     }
 }

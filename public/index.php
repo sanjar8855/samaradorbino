@@ -24,18 +24,18 @@ $report = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $b11 = $_POST['init_wall_type'];
-    $c13 = $_POST['init_wall[1][thickness]'];
-    $d14 = $_POST['init_wall[1][val]'];
-    $e13 = $_POST['init_wall[2][thickness]'];
-    $f14 = $_POST['init_wall[2][val]'];
-    $g13 = $_POST['init_wall[3][thickness]'];
-    $h14 = $_POST['init_wall[3][val]'];
-    $i13 = $_POST['init_wall[4][thickness]'];
-    $j14 = $_POST['init_wall[4][val]'];
-    $k13 = $_POST['init_wall[5][thickness]'];
-    $l14 = $_POST['init_wall[5][val]'];
-    $m13 = $_POST['init_wall[6][thickness]'];
-    $n14 = $_POST['init_wall[6][val]'];
+    $c13 = $_POST['init_wall'][1]['thickness'];
+    $d14 = $_POST['init_wall'][1]['val'];
+    $e13 = $_POST['init_wall'][2]['thickness'];
+    $f14 = $_POST['init_wall'][2]['val'];
+    $g13 = $_POST['init_wall'][3]['thickness'];
+    $h14 = $_POST['init_wall'][3]['val'];
+    $i13 = $_POST['init_wall'][4]['thickness'];
+    $j14 = $_POST['init_wall'][4]['val'];
+    $k13 = $_POST['init_wall'][5]['thickness'];
+    $l14 = $_POST['init_wall'][5]['val'];
+    $m13 = $_POST['init_wall'][6]['thickness'];
+    $n14 = $_POST['init_wall'][6]['val'];
     $bq1 = 1 / 8.7 + $c13 / $d14 + $e13 / $f14 + $g13 / $h14 + $i13 / $j14 + $k13 / $l14 + $m13 / $n14 + 1 / 23;
     if ($b11 == 1) {
         $b232 = 0.5 * $bq1;
@@ -81,18 +81,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $c35 = $_POST['rep_wall[1][thickness]'];;
-    $d36 = $_POST['rep_wall[1][val]'];
-    $e35 = $_POST['rep_wall[2][thickness]'];;
-    $f36 = $_POST['rep_wall[2][val]'];
-    $g35 = $_POST['rep_wall[3][thickness]'];;
-    $h36 = $_POST['rep_wall[3][val]'];
-    $i35 = $_POST['rep_wall[4][thickness]'];;
-    $j36 = $_POST['rep_wall[4][val]'];
-    $k35 = $_POST['rep_wall[5][thickness]'];;
-    $l36 = $_POST['rep_wall[5][val]'];
-    $m35 = $_POST['rep_wall[6][thickness]'];;
-    $n36 = $_POST['rep_wall[6][val]'];
+    $c35 = $_POST['rep_wall'][1]['thickness'];;
+    $d36 = $_POST['rep_wall'][1]['val'];
+    $e35 = $_POST['rep_wall'][2]['thickness'];;
+    $f36 = $_POST['rep_wall'][2]['val'];
+    $g35 = $_POST['rep_wall'][3]['thickness'];;
+    $h36 = $_POST['rep_wall'][3]['val'];
+    $i35 = $_POST['rep_wall'][4]['thickness'];;
+    $j36 = $_POST['rep_wall'][4]['val'];
+    $k35 = $_POST['rep_wall'][5]['thickness'];;
+    $l36 = $_POST['rep_wall'][5]['val'];
+    $m35 = $_POST['rep_wall'][6]['thickness'];;
+    $n36 = $_POST['rep_wall'][6]['val'];
     $d232 = $b232 + $c35 / $d36 + $e35 / $f36 + $g35 / $h36 + $i35 / $j36 + $k35 / $l36 + $m35 / $n36;
 
     $b4 = $_POST['cold_temp'];
@@ -110,61 +110,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $c234 = $e232 * 0.6;
     $d234 = $model->getPermCoeffBySubcatId($_POST['rep_door_type']);
 
-    $c22 = $_POST['init_roof_layer[1][thickness]'];;
-    $d23 = $_POST['init_roof_layer[1][val]'];;
-    $e22 = $_POST['init_roof_layer[2][thickness]'];;
-    $f23 = $_POST['init_roof_layer[2][val]'];;
-    $g22 = $_POST['init_roof_layer[3][thickness]'];;
-    $h23 = $_POST['init_roof_layer[3][val]'];;
-    $i22 = $_POST['init_roof_layer[4][thickness]'];;
-    $j23 = $_POST['init_roof_layer[4][val]'];;
-    $k22 = $_POST['init_roof_layer[5][thickness]'];;
-    $l23 = $_POST['init_roof_layer[5][val]'];;
-    $m22 = $_POST['init_roof_layer[6][thickness]'];;
-    $n23 = $_POST['init_roof_layer[6][val]'];;
+    $c22 = $_POST['init_roof_layer'][1]['thickness'];
+    $d23 = $_POST['init_roof_layer'][1]['val'];
+    $e22 = $_POST['init_roof_layer'][2]['thickness'];
+    $f23 = $_POST['init_roof_layer'][2]['val'];
+    $g22 = $_POST['init_roof_layer'][3]['thickness'];
+    $h23 = $_POST['init_roof_layer'][3]['val'];
+    $i22 = $_POST['init_roof_layer'][4]['thickness'];
+    $j23 = $_POST['init_roof_layer'][4]['val'];
+    $k22 = $_POST['init_roof_layer'][5]['thickness'];
+    $l23 = $_POST['init_roof_layer'][5]['val'];
+    $m22 = $_POST['init_roof_layer'][6]['thickness'];
+    $n23 = $_POST['init_roof_layer'][6]['val'];
     $b235 = 1 / 8.7 + $c22 / $d23 + $e22 / $f23 + $g22 / $h23 + $i22 / $j23 + $k22 / $l23 + $m22 / $n23 + 1 / 12;
-    $c44 = $_POST['rep_roof_layer[1][thickness]'];
-    $d45 = $_POST['rep_roof_layer[1][val]'];
-    $e44 = $_POST['rep_roof_layer[2][thickness]'];
-    $f45 = $_POST['rep_roof_layer[2][val]'];
-    $g44 = $_POST['rep_roof_layer[3][thickness]'];
-    $h45 = $_POST['rep_roof_layer[3][val]'];
-    $i44 = $_POST['rep_roof_layer[4][thickness]'];
-    $j45 = $_POST['rep_roof_layer[4][val]'];
-    $k44 = $_POST['rep_roof_layer[5][thickness]'];
-    $l45 = $_POST['rep_roof_layer[5][val]'];
-    $m44 = $_POST['rep_roof_layer[6][thickness]'];
-    $n45 = $_POST['rep_roof_layer[6][val]'];
+
+    $c44 = $_POST['rep_roof_layer'][1]['thickness'];
+    $d45 = $_POST['rep_roof_layer'][1]['val'];
+    $e44 = $_POST['rep_roof_layer'][2]['thickness'];
+    $f45 = $_POST['rep_roof_layer'][2]['val'];
+    $g44 = $_POST['rep_roof_layer'][3]['thickness'];
+    $h45 = $_POST['rep_roof_layer'][3]['val'];
+    $i44 = $_POST['rep_roof_layer'][4]['thickness'];
+    $j45 = $_POST['rep_roof_layer'][4]['val'];
+    $k44 = $_POST['rep_roof_layer'][5]['thickness'];
+    $l45 = $_POST['rep_roof_layer'][5]['val'];
+    $m44 = $_POST['rep_roof_layer'][6]['thickness'];
+    $n45 = $_POST['rep_roof_layer'][6]['val'];
     $d235 = $b235 + $c44 / $d45 + $e44 / $f45 + $g44 / $h45 + $i44 / $j45 + $k44 / $l45 + $m44 / $n45;
 
 
-    $c26 = $_POST['init_floor_layer[1][thickness]'];
-    $d27 = $_POST['init_floor_layer[1][val]'];
-    $e26 = $_POST['init_floor_layer[2][thickness]'];
-    $f27 = $_POST['init_floor_layer[2][val]'];
-    $g26 = $_POST['init_floor_layer[3][thickness]'];
-    $h27 = $_POST['init_floor_layer[3][val]'];
-    $i26 = $_POST['init_floor_layer[4][thickness]'];
-    $j27 = $_POST['init_floor_layer[4][val]'];
-    $k26 = $_POST['init_floor_layer[5][thickness]'];
-    $l27 = $_POST['init_floor_layer[5][val]'];
-    $m26 = $_POST['init_floor_layer[6][thickness]'];
-    $n27 = $_POST['init_floor_layer[6][val]'];
+    $c26 = $_POST['init_floor_layer'][1]['thickness'];
+    $d27 = $_POST['init_floor_layer'][1]['val'];
+    $e26 = $_POST['init_floor_layer'][2]['thickness'];
+    $f27 = $_POST['init_floor_layer'][2]['val'];
+    $g26 = $_POST['init_floor_layer'][3]['thickness'];
+    $h27 = $_POST['init_floor_layer'][3]['val'];
+    $i26 = $_POST['init_floor_layer'][4]['thickness'];
+    $j27 = $_POST['init_floor_layer'][4]['val'];
+    $k26 = $_POST['init_floor_layer'][5]['thickness'];
+    $l27 = $_POST['init_floor_layer'][5]['val'];
+    $m26 = $_POST['init_floor_layer'][6]['thickness'];
+    $n27 = $_POST['init_floor_layer'][6]['val'];
 
     $b236 = 1 / 8.7 + $c26 / $d27 + $e26 / $f27 + $g26 / $h27 + $i26 / $j27 + $k26 / $l27 + $m26 / $n27 + 1 / 12;
-    $c48 = $_POST['rep_floor_layer[1][thickness]'];
-    $d49 = $_POST['rep_floor_layer[1][val]'];
-    $e48 = $_POST['rep_floor_layer[2][thickness]'];
-    $f49 = $_POST['rep_floor_layer[2][val]'];
-    $g48 = $_POST['rep_floor_layer[3][thickness]'];
-    $h49 = $_POST['rep_floor_layer[3][val]'];
-    $i48 = $_POST['rep_floor_layer[4][thickness]'];
-    $j49 = $_POST['rep_floor_layer[4][val]'];
-    $k48 = $_POST['rep_floor_layer[5][thickness]'];
-    $l49 = $_POST['rep_floor_layer[5][val]'];
-    $m48 = $_POST['rep_floor_layer[6][thickness]'];
-    $n49 = $_POST['rep_floor_layer[6][val]'];
-    $d236 = $b236 + $c48/$d49 + $e48/$f49 + $g48/$h49 + $i48/$j49 + $k48/$l49 + $m48/$n49;
+    $c48 = $_POST['rep_floor_layer'][1]['thickness'];
+    $d49 = $_POST['rep_floor_layer'][1]['val'];
+    $e48 = $_POST['rep_floor_layer'][2]['thickness'];
+    $f49 = $_POST['rep_floor_layer'][2]['val'];
+    $g48 = $_POST['rep_floor_layer'][3]['thickness'];
+    $h49 = $_POST['rep_floor_layer'][3]['val'];
+    $i48 = $_POST['rep_floor_layer'][4]['thickness'];
+    $j49 = $_POST['rep_floor_layer'][4]['val'];
+    $k48 = $_POST['rep_floor_layer'][5]['thickness'];
+    $l49 = $_POST['rep_floor_layer'][5]['val'];
+    $m48 = $_POST['rep_floor_layer'][6]['thickness'];
+    $n49 = $_POST['rep_floor_layer'][6]['val'];
+    $d236 = $b236 + $c48 / $d49 + $e48 / $f49 + $g48 / $h49 + $i48 / $j49 + $k48 / $l49 + $m48 / $n49;
 
     $b8 = $_POST['wall_area'];
     $b9 = $_POST['window_area'];
@@ -172,16 +173,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $b6 = $_POST['heated_area'];
     $b53 = $_POST['avg_below10_temp'];
     $b54 = $_POST['duration_below10'];
-    $b238 = $b8 * ($b4-$b53) * 24 * $b54 / $b232;
-    $b239 = $b9 * ($b4-$b53) * 24 * $b54 / $b233;
-    $b240 = $b10 * ($b4-$b53) * 24 * $b54 / $b234;
-    $b241 = $b6 * ($b4-$b53) * 24 * $b54 / $b235;
-    $b242 = $b6 * ($b4-$b53) * 24 * $b54 / $b236;
-    $c238 = $b8 * ($b4-$b53) * 24 * $b54 / $d232;
-    $c239 = $b9 * ($b4-$b53) * 24 * $b54 / $d233;
-    $c240 = $b10 * ($b4-$b53) * 24 * $b54 / $d234;
-    $c241 = $b6 * ($b4-$b53) * 24 * $b54 / $d235;
-    $c242 = $b6 * ($b4-$b53) * 24 * $b54 / $d236;
+    $b238 = $b8 * ($b4 - $b53) * 24 * $b54 / $b232;
+    $b239 = $b9 * ($b4 - $b53) * 24 * $b54 / $b233;
+    $b240 = $b10 * ($b4 - $b53) * 24 * $b54 / $b234;
+    $b241 = $b6 * ($b4 - $b53) * 24 * $b54 / $b235;
+    $b242 = $b6 * ($b4 - $b53) * 24 * $b54 / $b236;
+    $c238 = $b8 * ($b4 - $b53) * 24 * $b54 / $d232;
+    $c239 = $b9 * ($b4 - $b53) * 24 * $b54 / $d233;
+    $c240 = $b10 * ($b4 - $b53) * 24 * $b54 / $d234;
+    $c241 = $b6 * ($b4 - $b53) * 24 * $b54 / $d235;
+    $c242 = $b6 * ($b4 - $b53) * 24 * $b54 / $d236;
 
     $b243 = $b238 + $b239 + $b240 + $b241 + $b242;
     $c243 = $c238 + $c239 + $c240 + $c241 + $c242;
@@ -189,26 +190,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $b28 = $_POST['shaft_area'];
     $b29 = $_POST['shaft_count'];
     $b30 = $_POST['shaft_speed'];
-    $a245=1.2*1005*$b28*$b29*$b30*($b4-$b53)*24*132;
+    $a245 = 1.2 * 1005 * $b28 * $b29 * $b30 * ($b4 - $b53) * 24 * 132;
 
     $a247 = $b243 + $a245;
     $b247 = $c243 + $a245;
 
     $a249 = $b243 + $a245;
+    $b249 = $b247 / ($b6 * $b7) / 1000;
 
-    $closest = $model->getClosestStandardHeat($b55);
+    $bounds = $model->getBoundingStandardHeats($b55);
+    $lower = $bounds['lower'];  // masalan degrees_per_day=2000 li satr
+    $upper = $bounds['upper'];  // masalan degrees_per_day=3000 li satr
 
-    if ($closest) {
-        $key = $closest["v".$b7];
-        $a251=0;
+    $col = 'v' . $b7;
+
+    if ($lower && $upper && $lower['degrees_per_day'] != $upper['degrees_per_day']) {
+        $t = ($b55 - $lower['degrees_per_day'])
+            / ($upper['degrees_per_day'] - $lower['degrees_per_day']);
+
+        $valLower = (float)$lower[$col];
+        $valUpper = (float)$upper[$col];
+        $a251 = $valLower + $t * ($valUpper - $valLower);
+    } else {
+        $a251 = $lower[$col] ?? $upper[$col] ?? null;
     }
 
-    //$b7 - qatavat;
-
-    function getCategoryWithPercent(float $a249, float $a251): string
+    function getCategoryWithPercent($a249, $a251): string
     {
         if ($a251 == 0) {
-            // nolga bo‘lish xatosini oldini olamiz
             return '–';
         }
 
@@ -230,15 +239,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $category = 'G';
         }
 
-        // Foizni formatlash (0.00%)
         $percentText = number_format($ratio * 100, 2, ',', '') . '%';
 
         return sprintf('%s (%s)', $category, $percentText);
     }
 
     $a253 = getCategoryWithPercent($a249, $a251);
-
-
+    $b253 = getCategoryWithPercent($b249, $a251);
 }
 
 ?>
@@ -807,37 +814,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <tbody>
                 <tr>
                     <td>Tashqi devor</td>
-                    <td class="text-center" id="b232">b232</td>
-                    <td class="text-center">c232</td>
-                    <td class="text-center">d232</td>
-                    <td class="text-center">e232</td>
+                    <td class="text-center"><?= $b232 ?? 0 ?></td>
+                    <td class="text-center"><?= $c232 ?? 0 ?></td>
+                    <td class="text-center"><?= $d232 ?? 0 ?></td>
+                    <td class="text-center"><?= $e232 ?? 0 ?></td>
                 </tr>
                 <tr>
                     <td>Tashqi deraza</td>
-                    <td class="text-center">0,15</td>
-                    <td class="text-center">0,53</td>
-                    <td class="text-center">0,36</td>
+                    <td class="text-center"><?= $b233 ?? 0 ?></td>
+                    <td class="text-center"><?= $c233 ?? 0 ?></td>
+                    <td class="text-center"><?= $d233 ?? 0 ?></td>
                     <td class="text-center">—</td>
                 </tr>
                 <tr>
                     <td>Tashqi eshik</td>
-                    <td class="text-center">0,16</td>
-                    <td class="text-center">0,59</td>
-                    <td class="text-center">0,94</td>
+                    <td class="text-center"><?= $b234 ?? 0 ?></td>
+                    <td class="text-center"><?= $c234 ?? 0 ?></td>
+                    <td class="text-center"><?= $d234 ?? 0 ?></td>
                     <td class="text-center">—</td>
                 </tr>
                 <tr>
                     <td>Tom qoplamasi</td>
-                    <td class="text-center">1,60</td>
-                    <td class="text-center">9,00</td>
-                    <td class="text-center">3,16</td>
+                    <td class="text-center"><?= $b235 ?? 0 ?></td>
+                    <td class="text-center"><?= $c235 ?? 0 ?></td>
+                    <td class="text-center"><?= $d235 ?? 0 ?></td>
                     <td class="text-center">—</td>
                 </tr>
                 <tr>
                     <td>Birinchi qavat pol</td>
-                    <td class="text-center">0,60</td>
-                    <td class="text-center">1,96</td>
-                    <td class="text-center">2,17</td>
+                    <td class="text-center"><?= $b236 ?? 0 ?></td>
+                    <td class="text-center"><?= $c236 ?? 0 ?></td>
+                    <td class="text-center"><?= $d236 ?? 0 ?></td>
                     <td class="text-center">—</td>
                 </tr>
                 </tbody>
@@ -858,33 +865,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <tbody>
                 <tr>
                     <td>Tashqi devorlar</td>
-                    <td class="text-end">31 718 913,65</td>
-                    <td class="text-end">16 891 601,75</td>
+                    <td class="text-end"><?= $b238 ?? 0 ?></td>
+                    <td class="text-end"><?= $c238 ?? 0 ?></td>
                 </tr>
                 <tr>
                     <td>Tashqi derazalar</td>
-                    <td class="text-end">124 267 275,00</td>
-                    <td class="text-end">51 778 031,25</td>
+                    <td class="text-end"><?= $b239 ?? 0 ?></td>
+                    <td class="text-end"><?= $c239 ?? 0 ?></td>
                 </tr>
                 <tr>
                     <td>Tashqi eshiklar</td>
-                    <td class="text-end">3 514 757,46</td>
-                    <td class="text-end">592 731,00</td>
+                    <td class="text-end"><?= $b240 ?? 0 ?></td>
+                    <td class="text-end"><?= $c240 ?? 0 ?></td>
                 </tr>
                 <tr>
                     <td>Tom yopmasi</td>
-                    <td class="text-end">18 149 277,77</td>
-                    <td class="text-end">9 174 165,19</td>
+                    <td class="text-end"><?= $b241 ?? 0 ?></td>
+                    <td class="text-end"><?= $c241 ?? 0 ?></td>
                 </tr>
                 <tr>
                     <td>Yerto‘la yopmasi</td>
-                    <td class="text-end">48 035 122,38</td>
-                    <td class="text-end">13 383 076,88</td>
+                    <td class="text-end"><?= $b242 ?? 0 ?></td>
+                    <td class="text-end"><?= $c242 ?? 0 ?></td>
                 </tr>
                 <tr class="fw-bold">
                     <td>Jami</td>
-                    <td class="text-end">225 685 346,26</td>
-                    <td class="text-end">91 819 606,07</td>
+                    <td class="text-end"><?= $b243 ?? 0 ?></td>
+                    <td class="text-end"><?= $c243 ?? 0 ?></td>
                 </tr>
                 </tbody>
             </table>
@@ -892,7 +899,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tbody>
-                    <!-- 1. Ventilyatsiya yo‘qotishi -->
                     <tr class="table-light">
                         <th colspan="4" class="text-center">
                             Ventilyatsiyadan yo‘qolayotgan issiqlik miqdori: Vt.
@@ -900,46 +906,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </tr>
                     <tr>
                         <td colspan="4" class="text-center">
-                            40 305 274,86
+                            <?= $a245 ?? 0 ?>
                         </td>
                     </tr>
 
-                    <!-- 2. Umumiy yo‘qotishlar -->
                     <tr class="table-light">
                         <th colspan="2">Mavjud holatdagi jami yo‘qotish: Vt.</th>
                         <th colspan="2">Izolyatsiyadan keyingi jami yo‘qotish: Vt.</th>
                     </tr>
                     <tr>
-                        <td colspan="2" class="text-end">265 990 621,10</td>
-                        <td colspan="2" class="text-end">132 124 880,90</td>
+                        <td colspan="2" class="text-center"><?= $a247 ?? 0 ?></td>
+                        <td colspan="2" class="text-center"><?= $b247 ?? 0 ?></td>
                     </tr>
 
-                    <!-- 3. Solishtirma issiqlik miqdori -->
                     <tr class="table-light">
-                        <th>Mavjud holatdagi solishtirma issiqlik: kVt/m²·yil</th>
-                        <th class="text-end">135,21</th>
-                        <th>Izolyatsiyadan keyingi solishtirma issiqlik: kVt/m²·yil</th>
-                        <th class="text-end">67,16</th>
+                        <th colspan="2">Mavjud holatdagi solishtirma issiqlik: kVt/m²·yil</th>
+                        <th colspan="2">Izolyatsiyadan keyingi solishtirma issiqlik: kVt/m²·yil</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center"><?= $a249 ?? 0 ?></td>
+                        <td colspan="2" class="text-center"><?= $b249 ?? 0 ?></td>
                     </tr>
 
-                    <!-- 4. Me'yoriy yillik solishtirma sarf -->
                     <tr class="table-light">
                         <th colspan="4" class="text-center">
                             Bino uchun me'yoriy yillik solishtirma issiqlik sarfi: kVt/m²·yil<br>
-                            <small>(issiqlik taʼminoti va ventilyatsiyadan yo‘qotilayotgan issiqlik miqdori
-                                uchun)</small>
+                            <small>
+                                (issiqlik taʼminoti va ventilyatsiyadan yo‘qotilayotgan issiqlik miqdori uchun)
+                            </small>
                         </th>
                     </tr>
                     <tr>
-                        <td colspan="4" class="text-center">68,31</td>
+                        <td colspan="4" class="text-center"><?= $a251 ?? 0 ?></td>
                     </tr>
 
-                    <!-- 5. Energiya samaradorlik toifalari -->
                     <tr class="table-light">
-                        <th>Mavjud holatdagi energiya samaradorlik toifasi</th>
-                        <th class="text-center">G (97,94%)</th>
-                        <th>Taʼmirdan keyingi energiya samaradorlik toifasi</th>
-                        <th class="text-center">D (-1,68%)</th>
+                        <th colspan="2">Mavjud holatdagi energiya samaradorlik toifasi</th>
+                        <th colspan="2">Taʼmirdan keyingi energiya samaradorlik toifasi</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center"><?= $a253 ?? 0 ?></td>
+                        <td colspan="2" class="text-center"><?= $b253 ?? 0 ?></td>
                     </tr>
                     </tbody>
                 </table>
