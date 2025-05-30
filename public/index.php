@@ -195,12 +195,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $a247 = $b243 + $a245;
     $b247 = $c243 + $a245;
 
-    $a249 = $b243 + $a245;
+    $a249 = $a247 / ($b6 * $b7) / 1000;
     $b249 = $b247 / ($b6 * $b7) / 1000;
 
     $bounds = $model->getBoundingStandardHeats($b55);
-    $lower = $bounds['lower'];  // masalan degrees_per_day=2000 li satr
-    $upper = $bounds['upper'];  // masalan degrees_per_day=3000 li satr
+    $lower = $bounds['lower'];
+    $upper = $bounds['upper'];
 
     $col = 'v' . $b7;
 
