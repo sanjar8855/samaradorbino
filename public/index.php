@@ -265,6 +265,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </nav>
 <main class="container mt-4">
     <h1>Asosiy hisoblash sahifasi</h1>
+    <div class="row">
+        <div class="col-12">
+            <img src="/assets/images/Baner.png" class="container-fluid" alt="Baner">
+        </div>
+    </div>
     <div class="container my-5">
         <h5 class="mb-2">Boshlang‘ich ma’lumotlar</h5>
         <form action="" method="POST" class="row g-1">
