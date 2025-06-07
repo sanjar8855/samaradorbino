@@ -267,7 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Asosiy hisoblash sahifasi</h1>
     <div class="row">
         <div class="col-12">
-            <img src="/assets/images/Baner.png" class="container-fluid" alt="Baner">
+            <img src="/assets/images/header-image.png" class="container-fluid" alt="Baner">
         </div>
     </div>
     <div class="container my-5">
