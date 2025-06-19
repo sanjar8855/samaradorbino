@@ -36,7 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $l14 = $_POST['init_wall'][5]['val'];
     $m13 = $_POST['init_wall'][6]['thickness'];
     $n14 = $_POST['init_wall'][6]['val'];
-    $bq1 = 1 / 8.7 + $c13 / $d14 + $e13 / $f14 + $g13 / $h14 + $i13 / $j14 + $k13 / $l14 + $m13 / $n14 + 1 / 23;
+
+    $term1 = ($d14 != 0) ? ($c13 / $d14) : 0;
+    $term2 = ($f14 != 0) ? ($e13 / $f14) : 0;
+    $term3 = ($h14 != 0) ? ($g13 / $h14) : 0;
+    $term4 = ($j14 != 0) ? ($i13 / $j14) : 0;
+    $term5 = ($l14 != 0) ? ($k13 / $l14) : 0;
+    $term6 = ($n14 != 0) ? ($m13 / $n14) : 0;
+
+    $bq1 = 1 / 8.7 + $term1 + $term2 + $term3 + $term4 + $term5 + $term6 + 1 / 23;
     if ($b11 == 1) {
         $b232 = 0.5 * $bq1;
     } else {
@@ -93,7 +101,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $l36 = $_POST['rep_wall'][5]['val'];
     $m35 = $_POST['rep_wall'][6]['thickness'];;
     $n36 = $_POST['rep_wall'][6]['val'];
-    $d232 = $b232 + $c35 / $d36 + $e35 / $f36 + $g35 / $h36 + $i35 / $j36 + $k35 / $l36 + $m35 / $n36;
+    // Ta'mirdan keyingi devor qatlamlari uchun hisoblash
+    $term_rep1 = ($d36 != 0) ? ($c35 / $d36) : 0;
+    $term_rep2 = ($f36 != 0) ? ($e35 / $f36) : 0;
+    $term_rep3 = ($h36 != 0) ? ($g35 / $h36) : 0;
+    $term_rep4 = ($j36 != 0) ? ($i35 / $j36) : 0;
+    $term_rep5 = ($l36 != 0) ? ($k35 / $l36) : 0;
+    $term_rep6 = ($n36 != 0) ? ($m35 / $n36) : 0;
+
+    $d232 = $b232 + $term_rep1 + $term_rep2 + $term_rep3 + $term_rep4 + $term_rep5 + $term_rep6;
 
     $b4 = $_POST['cold_temp'];
     $b52 = $_POST['outside_temp'];
@@ -122,7 +138,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $l23 = $_POST['init_roof_layer'][5]['val'];
     $m22 = $_POST['init_roof_layer'][6]['thickness'];
     $n23 = $_POST['init_roof_layer'][6]['val'];
-    $b235 = 1 / 8.7 + $c22 / $d23 + $e22 / $f23 + $g22 / $h23 + $i22 / $j23 + $k22 / $l23 + $m22 / $n23 + 1 / 12;
+    $roof_term1 = ($d23 != 0) ? ($c22 / $d23) : 0;
+    $roof_term2 = ($f23 != 0) ? ($e22 / $f23) : 0;
+    $roof_term3 = ($h23 != 0) ? ($g22 / $h23) : 0;
+    $roof_term4 = ($j23 != 0) ? ($i22 / $j23) : 0;
+    $roof_term5 = ($l23 != 0) ? ($k22 / $l23) : 0;
+    $roof_term6 = ($n23 != 0) ? ($m22 / $n23) : 0;
+    $b235 = 1 / 8.7 + $roof_term1 + $roof_term2 + $roof_term3 + $roof_term4 + $roof_term5 + $roof_term6 + 1 / 12;
 
     $c44 = $_POST['rep_roof_layer'][1]['thickness'];
     $d45 = $_POST['rep_roof_layer'][1]['val'];
@@ -136,7 +158,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $l45 = $_POST['rep_roof_layer'][5]['val'];
     $m44 = $_POST['rep_roof_layer'][6]['thickness'];
     $n45 = $_POST['rep_roof_layer'][6]['val'];
-    $d235 = $b235 + $c44 / $d45 + $e44 / $f45 + $g44 / $h45 + $i44 / $j45 + $k44 / $l45 + $m44 / $n45;
+    $roof_rep_term1 = ($d45 != 0) ? ($c44 / $d45) : 0;
+    $roof_rep_term2 = ($f45 != 0) ? ($e44 / $f45) : 0;
+    $roof_rep_term3 = ($h45 != 0) ? ($g44 / $h45) : 0;
+    $roof_rep_term4 = ($j45 != 0) ? ($i44 / $j45) : 0;
+    $roof_rep_term5 = ($l45 != 0) ? ($k44 / $l45) : 0;
+    $roof_rep_term6 = ($n45 != 0) ? ($m44 / $n45) : 0;
+    $d235 = $b235 + $roof_rep_term1 + $roof_rep_term2 + $roof_rep_term3 + $roof_rep_term4 + $roof_rep_term5 + $roof_rep_term6;
 
 
     $c26 = $_POST['init_floor_layer'][1]['thickness'];
@@ -152,7 +180,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $m26 = $_POST['init_floor_layer'][6]['thickness'];
     $n27 = $_POST['init_floor_layer'][6]['val'];
 
-    $b236 = 1 / 8.7 + $c26 / $d27 + $e26 / $f27 + $g26 / $h27 + $i26 / $j27 + $k26 / $l27 + $m26 / $n27 + 1 / 12;
+    $floor_term1 = ($d27 != 0) ? ($c26 / $d27) : 0;
+    $floor_term2 = ($f27 != 0) ? ($e26 / $f27) : 0;
+    $floor_term3 = ($h27 != 0) ? ($g26 / $h27) : 0;
+    $floor_term4 = ($j27 != 0) ? ($i26 / $j27) : 0;
+    $floor_term5 = ($l27 != 0) ? ($k26 / $l27) : 0;
+    $floor_term6 = ($n27 != 0) ? ($m26 / $n27) : 0;
+    $b236 = 1 / 8.7 + $floor_term1 + $floor_term2 + $floor_term3 + $floor_term4 + $floor_term5 + $floor_term6 + 1 / 12;
+
     $c48 = $_POST['rep_floor_layer'][1]['thickness'];
     $d49 = $_POST['rep_floor_layer'][1]['val'];
     $e48 = $_POST['rep_floor_layer'][2]['thickness'];
@@ -165,7 +200,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $l49 = $_POST['rep_floor_layer'][5]['val'];
     $m48 = $_POST['rep_floor_layer'][6]['thickness'];
     $n49 = $_POST['rep_floor_layer'][6]['val'];
-    $d236 = $b236 + $c48 / $d49 + $e48 / $f49 + $g48 / $h49 + $i48 / $j49 + $k48 / $l49 + $m48 / $n49;
+    $floor_rep_term1 = ($d49 != 0) ? ($c48 / $d49) : 0;
+    $floor_rep_term2 = ($f49 != 0) ? ($e48 / $f49) : 0;
+    $floor_rep_term3 = ($h49 != 0) ? ($g48 / $h49) : 0;
+    $floor_rep_term4 = ($j49 != 0) ? ($i48 / $j49) : 0;
+    $floor_rep_term5 = ($l49 != 0) ? ($k48 / $l49) : 0;
+    $floor_rep_term6 = ($n49 != 0) ? ($m48 / $n49) : 0;
+    $d236 = $b236 + $floor_rep_term1 + $floor_rep_term2 + $floor_rep_term3 + $floor_rep_term4 + $floor_rep_term5 + $floor_rep_term6;
 
     $b8 = $_POST['wall_area'];
     $b9 = $_POST['window_area'];
@@ -173,16 +214,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $b6 = $_POST['heated_area'];
     $b53 = $_POST['avg_below10_temp'];
     $b54 = $_POST['duration_below10'];
-    $b238 = $b8 * ($b4 - $b53) * 24 * $b54 / $b232;
-    $b239 = $b9 * ($b4 - $b53) * 24 * $b54 / $b233;
-    $b240 = $b10 * ($b4 - $b53) * 24 * $b54 / $b234;
-    $b241 = $b6 * ($b4 - $b53) * 24 * $b54 / $b235;
-    $b242 = $b6 * ($b4 - $b53) * 24 * $b54 / $b236;
-    $c238 = $b8 * ($b4 - $b53) * 24 * $b54 / $d232;
-    $c239 = $b9 * ($b4 - $b53) * 24 * $b54 / $d233;
-    $c240 = $b10 * ($b4 - $b53) * 24 * $b54 / $d234;
-    $c241 = $b6 * ($b4 - $b53) * 24 * $b54 / $d235;
-    $c242 = $b6 * ($b4 - $b53) * 24 * $b54 / $d236;
+
+    // Dastlabki holat uchun issiqlik yo'qotishlari
+    $b238 = ($b232 != 0) ? ($b8 * ($b4 - $b53) * 24 * $b54 / $b232) : 0;
+    $b239 = ($b233 != 0) ? ($b9 * ($b4 - $b53) * 24 * $b54 / $b233) : 0;
+    $b240 = ($b234 != 0) ? ($b10 * ($b4 - $b53) * 24 * $b54 / $b234) : 0;
+    $b241 = ($b235 != 0) ? ($b6 * ($b4 - $b53) * 24 * $b54 / $b235) : 0;
+    $b242 = ($b236 != 0) ? ($b6 * ($b4 - $b53) * 24 * $b54 / $b236) : 0;
+
+// Ta'mirdan keyingi holat uchun issiqlik yo'qotishlari
+    $c238 = ($d232 != 0) ? ($b8 * ($b4 - $b53) * 24 * $b54 / $d232) : 0;
+    $c239 = ($d233 != 0) ? ($b9 * ($b4 - $b53) * 24 * $b54 / $d233) : 0;
+    $c240 = ($d234 != 0) ? ($b10 * ($b4 - $b53) * 24 * $b54 / $d234) : 0;
+    $c241 = ($d235 != 0) ? ($b6 * ($b4 - $b53) * 24 * $b54 / $d235) : 0;
+    $c242 = ($d236 != 0) ? ($b6 * ($b4 - $b53) * 24 * $b54 / $d236) : 0;
 
     $b243 = $b238 + $b239 + $b240 + $b241 + $b242;
     $c243 = $c238 + $c239 + $c240 + $c241 + $c242;
@@ -195,8 +240,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $a247 = $b243 + $a245;
     $b247 = $c243 + $a245;
 
-    $a249 = $a247 / ($b6 * $b7) / 1000;
-    $b249 = $b247 / ($b6 * $b7) / 1000;
+    $denominator = $b6 * $b7;
+    $a249 = ($denominator != 0) ? ($a247 / $denominator / 1000) : 0;
+    $b249 = ($denominator != 0) ? ($b247 / $denominator / 1000) : 0;
 
     $bounds = $model->getBoundingStandardHeats($b55);
     $lower = $bounds['lower'];
