@@ -24,18 +24,18 @@ $report = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $b11 = $_POST['init_wall_type'];
-    $c13 = $_POST['init_wall'][1]['thickness'];
-    $d14 = $_POST['init_wall'][1]['val'];
-    $e13 = $_POST['init_wall'][2]['thickness'];
-    $f14 = $_POST['init_wall'][2]['val'];
-    $g13 = $_POST['init_wall'][3]['thickness'];
-    $h14 = $_POST['init_wall'][3]['val'];
-    $i13 = $_POST['init_wall'][4]['thickness'];
-    $j14 = $_POST['init_wall'][4]['val'];
-    $k13 = $_POST['init_wall'][5]['thickness'];
-    $l14 = $_POST['init_wall'][5]['val'];
-    $m13 = $_POST['init_wall'][6]['thickness'];
-    $n14 = $_POST['init_wall'][6]['val'];
+    $c13 = (float)$_POST['init_wall'][1]['thickness'];
+    $d14 = (float)$_POST['init_wall'][1]['val'];
+    $e13 = (float)$_POST['init_wall'][2]['thickness'];
+    $f14 = (float)$_POST['init_wall'][2]['val'];
+    $g13 = (float)$_POST['init_wall'][3]['thickness'];
+    $h14 = (float)$_POST['init_wall'][3]['val'];
+    $i13 = (float)$_POST['init_wall'][4]['thickness'];
+    $j14 = (float)$_POST['init_wall'][4]['val'];
+    $k13 = (float)$_POST['init_wall'][5]['thickness'];
+    $l14 = (float)$_POST['init_wall'][5]['val'];
+    $m13 = (float)$_POST['init_wall'][6]['thickness'];
+    $n14 = (float)$_POST['init_wall'][6]['val'];
 
     $term1 = ($d14 != 0) ? ($c13 / $d14) : 0;
     $term2 = ($f14 != 0) ? ($e13 / $f14) : 0;
@@ -89,18 +89,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $c35 = $_POST['rep_wall'][1]['thickness'];;
-    $d36 = $_POST['rep_wall'][1]['val'];
-    $e35 = $_POST['rep_wall'][2]['thickness'];;
-    $f36 = $_POST['rep_wall'][2]['val'];
-    $g35 = $_POST['rep_wall'][3]['thickness'];;
-    $h36 = $_POST['rep_wall'][3]['val'];
-    $i35 = $_POST['rep_wall'][4]['thickness'];;
-    $j36 = $_POST['rep_wall'][4]['val'];
-    $k35 = $_POST['rep_wall'][5]['thickness'];;
-    $l36 = $_POST['rep_wall'][5]['val'];
-    $m35 = $_POST['rep_wall'][6]['thickness'];;
-    $n36 = $_POST['rep_wall'][6]['val'];
+    $c35 = (float)$_POST['rep_wall'][1]['thickness'];
+    $d36 = (float)$_POST['rep_wall'][1]['val'];
+    $e35 = (float)$_POST['rep_wall'][2]['thickness'];
+    $f36 = (float)$_POST['rep_wall'][2]['val'];
+    $g35 = (float)$_POST['rep_wall'][3]['thickness'];
+    $h36 = (float)$_POST['rep_wall'][3]['val'];
+    $i35 = (float)$_POST['rep_wall'][4]['thickness'];
+    $j36 = (float)$_POST['rep_wall'][4]['val'];
+    $k35 = (float)$_POST['rep_wall'][5]['thickness'];
+    $l36 = (float)$_POST['rep_wall'][5]['val'];
+    $m35 = (float)$_POST['rep_wall'][6]['thickness'];
+    $n36 = (float)$_POST['rep_wall'][6]['val'];
     // Ta'mirdan keyingi devor qatlamlari uchun hisoblash
     $term_rep1 = ($d36 != 0) ? ($c35 / $d36) : 0;
     $term_rep2 = ($f36 != 0) ? ($e35 / $f36) : 0;
@@ -126,18 +126,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $c234 = $e232 * 0.6;
     $d234 = $model->getPermCoeffBySubcatId($_POST['rep_door_type']);
 
-    $c22 = $_POST['init_roof_layer'][1]['thickness'];
-    $d23 = $_POST['init_roof_layer'][1]['val'];
-    $e22 = $_POST['init_roof_layer'][2]['thickness'];
-    $f23 = $_POST['init_roof_layer'][2]['val'];
-    $g22 = $_POST['init_roof_layer'][3]['thickness'];
-    $h23 = $_POST['init_roof_layer'][3]['val'];
-    $i22 = $_POST['init_roof_layer'][4]['thickness'];
-    $j23 = $_POST['init_roof_layer'][4]['val'];
-    $k22 = $_POST['init_roof_layer'][5]['thickness'];
-    $l23 = $_POST['init_roof_layer'][5]['val'];
-    $m22 = $_POST['init_roof_layer'][6]['thickness'];
-    $n23 = $_POST['init_roof_layer'][6]['val'];
+    $c22 = (float)$_POST['init_roof_layer'][1]['thickness'];
+    $d23 = (float)$_POST['init_roof_layer'][1]['val'];
+    $e22 = (float)$_POST['init_roof_layer'][2]['thickness'];
+    $f23 = (float)$_POST['init_roof_layer'][2]['val'];
+    $g22 = (float)$_POST['init_roof_layer'][3]['thickness'];
+    $h23 = (float)$_POST['init_roof_layer'][3]['val'];
+    $i22 = (float)$_POST['init_roof_layer'][4]['thickness'];
+    $j23 = (float)$_POST['init_roof_layer'][4]['val'];
+    $k22 = (float)$_POST['init_roof_layer'][5]['thickness'];
+    $l23 = (float)$_POST['init_roof_layer'][5]['val'];
+    $m22 = (float)$_POST['init_roof_layer'][6]['thickness'];
+    $n23 = (float)$_POST['init_roof_layer'][6]['val'];
     $roof_term1 = ($d23 != 0) ? ($c22 / $d23) : 0;
     $roof_term2 = ($f23 != 0) ? ($e22 / $f23) : 0;
     $roof_term3 = ($h23 != 0) ? ($g22 / $h23) : 0;
@@ -146,18 +146,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $roof_term6 = ($n23 != 0) ? ($m22 / $n23) : 0;
     $b235 = 1 / 8.7 + $roof_term1 + $roof_term2 + $roof_term3 + $roof_term4 + $roof_term5 + $roof_term6 + 1 / 12;
 
-    $c44 = $_POST['rep_roof_layer'][1]['thickness'];
-    $d45 = $_POST['rep_roof_layer'][1]['val'];
-    $e44 = $_POST['rep_roof_layer'][2]['thickness'];
-    $f45 = $_POST['rep_roof_layer'][2]['val'];
-    $g44 = $_POST['rep_roof_layer'][3]['thickness'];
-    $h45 = $_POST['rep_roof_layer'][3]['val'];
-    $i44 = $_POST['rep_roof_layer'][4]['thickness'];
-    $j45 = $_POST['rep_roof_layer'][4]['val'];
-    $k44 = $_POST['rep_roof_layer'][5]['thickness'];
-    $l45 = $_POST['rep_roof_layer'][5]['val'];
-    $m44 = $_POST['rep_roof_layer'][6]['thickness'];
-    $n45 = $_POST['rep_roof_layer'][6]['val'];
+    $c44 = (float)$_POST['rep_roof_layer'][1]['thickness'];
+    $d45 = (float)$_POST['rep_roof_layer'][1]['val'];
+    $e44 = (float)$_POST['rep_roof_layer'][2]['thickness'];
+    $f45 = (float)$_POST['rep_roof_layer'][2]['val'];
+    $g44 = (float)$_POST['rep_roof_layer'][3]['thickness'];
+    $h45 = (float)$_POST['rep_roof_layer'][3]['val'];
+    $i44 = (float)$_POST['rep_roof_layer'][4]['thickness'];
+    $j45 = (float)$_POST['rep_roof_layer'][4]['val'];
+    $k44 = (float)$_POST['rep_roof_layer'][5]['thickness'];
+    $l45 = (float)$_POST['rep_roof_layer'][5]['val'];
+    $m44 = (float)$_POST['rep_roof_layer'][6]['thickness'];
+    $n45 = (float)$_POST['rep_roof_layer'][6]['val'];
     $roof_rep_term1 = ($d45 != 0) ? ($c44 / $d45) : 0;
     $roof_rep_term2 = ($f45 != 0) ? ($e44 / $f45) : 0;
     $roof_rep_term3 = ($h45 != 0) ? ($g44 / $h45) : 0;
@@ -167,18 +167,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $d235 = $b235 + $roof_rep_term1 + $roof_rep_term2 + $roof_rep_term3 + $roof_rep_term4 + $roof_rep_term5 + $roof_rep_term6;
 
 
-    $c26 = $_POST['init_floor_layer'][1]['thickness'];
-    $d27 = $_POST['init_floor_layer'][1]['val'];
-    $e26 = $_POST['init_floor_layer'][2]['thickness'];
-    $f27 = $_POST['init_floor_layer'][2]['val'];
-    $g26 = $_POST['init_floor_layer'][3]['thickness'];
-    $h27 = $_POST['init_floor_layer'][3]['val'];
-    $i26 = $_POST['init_floor_layer'][4]['thickness'];
-    $j27 = $_POST['init_floor_layer'][4]['val'];
-    $k26 = $_POST['init_floor_layer'][5]['thickness'];
-    $l27 = $_POST['init_floor_layer'][5]['val'];
-    $m26 = $_POST['init_floor_layer'][6]['thickness'];
-    $n27 = $_POST['init_floor_layer'][6]['val'];
+    $c26 = (float)$_POST['init_floor_layer'][1]['thickness'];
+    $d27 = (float)$_POST['init_floor_layer'][1]['val'];
+    $e26 = (float)$_POST['init_floor_layer'][2]['thickness'];
+    $f27 = (float)$_POST['init_floor_layer'][2]['val'];
+    $g26 = (float)$_POST['init_floor_layer'][3]['thickness'];
+    $h27 = (float)$_POST['init_floor_layer'][3]['val'];
+    $i26 = (float)$_POST['init_floor_layer'][4]['thickness'];
+    $j27 = (float)$_POST['init_floor_layer'][4]['val'];
+    $k26 = (float)$_POST['init_floor_layer'][5]['thickness'];
+    $l27 = (float)$_POST['init_floor_layer'][5]['val'];
+    $m26 = (float)$_POST['init_floor_layer'][6]['thickness'];
+    $n27 = (float)$_POST['init_floor_layer'][6]['val'];
 
     $floor_term1 = ($d27 != 0) ? ($c26 / $d27) : 0;
     $floor_term2 = ($f27 != 0) ? ($e26 / $f27) : 0;
@@ -188,18 +188,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $floor_term6 = ($n27 != 0) ? ($m26 / $n27) : 0;
     $b236 = 1 / 8.7 + $floor_term1 + $floor_term2 + $floor_term3 + $floor_term4 + $floor_term5 + $floor_term6 + 1 / 12;
 
-    $c48 = $_POST['rep_floor_layer'][1]['thickness'];
-    $d49 = $_POST['rep_floor_layer'][1]['val'];
-    $e48 = $_POST['rep_floor_layer'][2]['thickness'];
-    $f49 = $_POST['rep_floor_layer'][2]['val'];
-    $g48 = $_POST['rep_floor_layer'][3]['thickness'];
-    $h49 = $_POST['rep_floor_layer'][3]['val'];
-    $i48 = $_POST['rep_floor_layer'][4]['thickness'];
-    $j49 = $_POST['rep_floor_layer'][4]['val'];
-    $k48 = $_POST['rep_floor_layer'][5]['thickness'];
-    $l49 = $_POST['rep_floor_layer'][5]['val'];
-    $m48 = $_POST['rep_floor_layer'][6]['thickness'];
-    $n49 = $_POST['rep_floor_layer'][6]['val'];
+    $c48 = (float)$_POST['rep_floor_layer'][1]['thickness'];
+    $d49 = (float)$_POST['rep_floor_layer'][1]['val'];
+    $e48 = (float)$_POST['rep_floor_layer'][2]['thickness'];
+    $f49 = (float)$_POST['rep_floor_layer'][2]['val'];
+    $g48 = (float)$_POST['rep_floor_layer'][3]['thickness'];
+    $h49 = (float)$_POST['rep_floor_layer'][3]['val'];
+    $i48 = (float)$_POST['rep_floor_layer'][4]['thickness'];
+    $j49 = (float)$_POST['rep_floor_layer'][4]['val'];
+    $k48 = (float)$_POST['rep_floor_layer'][5]['thickness'];
+    $l49 = (float)$_POST['rep_floor_layer'][5]['val'];
+    $m48 = (float)$_POST['rep_floor_layer'][6]['thickness'];
+    $n49 = (float)$_POST['rep_floor_layer'][6]['val'];
     $floor_rep_term1 = ($d49 != 0) ? ($c48 / $d49) : 0;
     $floor_rep_term2 = ($f49 != 0) ? ($e48 / $f49) : 0;
     $floor_rep_term3 = ($h49 != 0) ? ($g48 / $h49) : 0;
@@ -208,12 +208,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $floor_rep_term6 = ($n49 != 0) ? ($m48 / $n49) : 0;
     $d236 = $b236 + $floor_rep_term1 + $floor_rep_term2 + $floor_rep_term3 + $floor_rep_term4 + $floor_rep_term5 + $floor_rep_term6;
 
-    $b8 = $_POST['wall_area'];
-    $b9 = $_POST['window_area'];
-    $b10 = $_POST['door_area'];
-    $b6 = $_POST['heated_area'];
-    $b53 = $_POST['avg_below10_temp'];
-    $b54 = $_POST['duration_below10'];
+    $b8 = (float)$_POST['wall_area'];
+    $b9 = (float)$_POST['window_area'];
+    $b10 = (float)$_POST['door_area'];
+    $b6 = (float)$_POST['heated_area'];
+    $b53 = (float)$_POST['avg_below10_temp'];
+    $b54 = (float)$_POST['duration_below10'];
 
     // Dastlabki holat uchun issiqlik yo'qotishlari
     $b238 = ($b232 != 0) ? ($b8 * ($b4 - $b53) * 24 * $b54 / $b232) : 0;
